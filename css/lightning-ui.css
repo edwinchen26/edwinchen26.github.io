@@ -6,9 +6,13 @@
 html, body{
 	width: 100%;
 	height: 100vh;
-	font-size: 1.05rem;
-	font-family: 'Cabin', sans-serif;
+	font: 400 1.05rem 'Cabin', sans-serif;
 	margin: 0;
+}
+
+.container{
+	max-width: 960px;
+	margin: 0 auto;
 }
 
 /* Typography */
@@ -24,17 +28,66 @@ h4 { font-size: 2.0rem; line-height: 1.0; letter-spacing: -.08rem; }
 h5 { font-size: 1.8rem; line-height: 1.0;  letter-spacing: -.05rem; }
 h6 { font-size: 1.4rem; line-height: 1.0;  letter-spacing: 0; }
 
+
+/* Grids */
+.lg-grid-container::after{
+	content: "";
+    clear: both;
+    display: table;
+}
+
+[class*="lg-grid-col-"] {
+    float: left;
+    padding: 15px;
+}
+
+.lg-grid-container .lg-grid-col-1 {width: 8.33%;}
+.lg-grid-container .lg-grid-col-2 {width: 16.66%;}
+.lg-grid-container .lg-grid-col-3 {width: 25%;}
+.lg-grid-container .lg-grid-col-4 {width: 33.33%;}
+.lg-grid-container .lg-grid-col-5 {width: 41.66%;}
+.lg-grid-container .lg-grid-col-6 {width: 50%;}
+.lg-grid-container .lg-grid-col-7 {width: 58.33%;}
+.lg-grid-container .lg-grid-col-8 {width: 66.66%;}
+.lg-grid-container .lg-grid-col-9 {width: 75%;}
+.lg-grid-container .lg-grid-col-10 {width: 83.33%;}
+.lg-grid-container .lg-grid-col-11 {width: 91.66%;}
+.lg-grid-container .lg-grid-col-12 {width: 100%;}
+
 /* Forms */
-.lg-button{
+form label{ font-weight: 500; }
+input[type="text"], input[type="password"], input[type="email"], textarea, select{
+	max-width: 100%;
+	min-width: 100%;
+	padding: 10px;
+	font: 400 1.05rem 'Cabin', sans-serif;
+	border-radius: 7px;
+	border: 1px solid #BDBDBD;
+	background-color: transparent;
+	margin: 5px 0px;
+}
+input:not([type="submit"]):hover, textarea:hover, select:hover{ border: 1px solid #6BB9F0; }
+input:not([type="submit"]):focus, textarea:focus, select:focus{ border: 1px solid #6BB9F0; box-shadow: inset 0 0 0 1px #6BB9F0; }
+input[type="radio"]{ display: none; }
+input[type="radio"] + label{ padding: 7px 10px; border: 1px solid #BDBDBD; border-radius: 5px; margin: 5px 0px; display: inline-block; }
+input[type="radio"]:checked + label{ border: 1px solid #6BB9F0; color: #3498DB; box-shadow: inset 0 0 0 1px #6BB9F0; }
+
+input[type="checkbox"]{ display: none; }
+input[type="checkbox"] + label{ padding: 7px 10px; border: 1px solid #BDBDBD; border-radius: 5px; margin: 5px 0px; display: inline-block; }
+input[type="checkbox"]:checked + label{ border: 1px solid #6BB9F0; color: #3498DB; box-shadow: inset 0 0 0 1px #6BB9F0; }
+
+input[type="submit"], .lg-button{
 	padding: 10px 30px;
 	border: 1px solid rgba(255, 255, 255, 1);
 	border-radius: 50px;
 	display: inline-block;
 	cursor: pointer;
 	box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
-	margin: 0 10px;
+	margin: 10px 10px 10px 0px;
 	text-align: center;
 	color: rgba(255, 255, 255, 1);
+	background-color: transparent;
+	font: 400 1.05rem 'Cabin', sans-serif;
 }
 .lg-button._fadeIn{ border-color: rgba(255, 255, 255, 0.8); color: rgba(255, 255, 255, 0.8); transition: 0.2s; }
 .lg-button._fadeIn:hover{ border-color: rgba(255, 255, 255, 1); color: rgba(255, 255, 255, 1); }
@@ -66,3 +119,8 @@ h6 { font-size: 1.4rem; line-height: 1.0;  letter-spacing: 0; }
 .lg-button._dark{ border-color: rgba(44, 62, 80, 1); color: rgba(44, 62, 80, 1); }
 .lg-button._dark._fadeIn{ border-color: rgba(44, 62, 80, 0.7); color: rgba(44, 62, 80, 0.7); transition: 0.2s; }
 .lg-button._dark._fadeIn:hover{ border-color: rgba(44, 62, 80, 1);	color: rgba(44, 62, 80, 1); }
+
+/* Other */
+.clear{
+	clear: both;
+}
