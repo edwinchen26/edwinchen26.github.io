@@ -1,0 +1,68 @@
+/* Main */
+*{
+	box-sizing: border-box;
+}
+
+html, body{
+	width: 100%;
+	height: 100vh;
+	font-size: 1.05rem;
+	font-family: 'Cabin', sans-serif;
+	margin: 0;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6{
+	margin-top: 0;
+	margin-bottom: 1rem;
+	font-weight: 400;
+}
+h1 { font-size: 3.3rem; line-height: 1.0;  letter-spacing: -.03rem;}
+h2 { font-size: 2.8rem; line-height: 1.0; letter-spacing: -.1rem; }
+h3 { font-size: 2.4rem; line-height: 1.0;  letter-spacing: -.1rem; }
+h4 { font-size: 2.0rem; line-height: 1.0; letter-spacing: -.08rem; }
+h5 { font-size: 1.8rem; line-height: 1.0;  letter-spacing: -.05rem; }
+h6 { font-size: 1.4rem; line-height: 1.0;  letter-spacing: 0; }
+
+/* Forms */
+.lg-button{
+	padding: 10px 30px;
+	border: 1px solid rgba(255, 255, 255, 1);
+	border-radius: 50px;
+	display: inline-block;
+	cursor: pointer;
+	box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
+	margin: 0 10px;
+	text-align: center;
+	color: rgba(255, 255, 255, 1);
+}
+.lg-button._fadeIn{ border-color: rgba(255, 255, 255, 0.8); color: rgba(255, 255, 255, 0.8); transition: 0.2s; }
+.lg-button._fadeIn:hover{ border-color: rgba(255, 255, 255, 1); color: rgba(255, 255, 255, 1); }
+
+
+
+/* Colors */
+/* Buttons */
+.lg-button._red{ border-color: rgba(231, 76, 60, 1); color: rgba(231, 76, 60, 1); }
+.lg-button._red._fadeIn{ border-color: rgba(231, 76, 60, 0.7); color: rgba(231, 76, 60, 0.7); transition: 0.2s; }
+.lg-button._red._fadeIn:hover{ border-color: rgba(231, 76, 60, 1); color: rgba(231, 76, 60, 1); }
+
+.lg-button._purple{ border-color: rgba(145, 61, 136, 1); color: rgba(145, 61, 136, 1); }
+.lg-button._purple._fadeIn{ border-color: rgba(145, 61, 136, 0.7); color: rgba(145, 61, 136, 0.7); transition: 0.2s; }
+.lg-button._purple._fadeIn:hover{ border-color: rgba(145, 61, 136, 1);	color: rgba(145, 61, 136, 1); }
+
+.lg-button._blue{ border-color: rgba(82, 179, 217, 1); color: rgba(82, 179, 217, 1); }
+.lg-button._blue._fadeIn{ border-color: rgba(82, 179, 217, 0.7); color: rgba(82, 179, 217, 0.7); transition: 0.2s; }
+.lg-button._blue._fadeIn:hover{ border-color: rgba(82, 179, 217, 1);	color: rgba(82, 179, 217, 1); }
+
+.lg-button._green{ border-color: rgba(0, 177, 106, 1); color: rgba(0, 177, 106, 1); }
+.lg-button._green._fadeIn{ border-color: rgba(0, 177, 106, 0.7); color: rgba(0, 177, 106, 0.7); transition: 0.2s; }
+.lg-button._green._fadeIn:hover{ border-color: rgba(0, 177, 106, 1);	color: rgba(0, 177, 106, 1); }
+
+.lg-button._gold{ border-color: rgba(247, 202, 24, 1); color: rgba(247, 202, 24, 1); }
+.lg-button._gold._fadeIn{ border-color: rgba(247, 202, 24, 0.7); color: rgba(247, 202, 24, 0.7); transition: 0.2s; }
+.lg-button._gold._fadeIn:hover{ border-color: rgba(247, 202, 24, 1);	color: rgba(247, 202, 24, 1); }
+
+.lg-button._dark{ border-color: rgba(44, 62, 80, 1); color: rgba(44, 62, 80, 1); }
+.lg-button._dark._fadeIn{ border-color: rgba(44, 62, 80, 0.7); color: rgba(44, 62, 80, 0.7); transition: 0.2s; }
+.lg-button._dark._fadeIn:hover{ border-color: rgba(44, 62, 80, 1);	color: rgba(44, 62, 80, 1); }
