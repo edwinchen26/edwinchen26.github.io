@@ -37,16 +37,27 @@
 
 .main{
 	width: 100%;
-	height: 1200px;
 	box-sizing: border-box;
 	background-color: #F0F0F0;
 	box-shadow: inset 0 7px 9px -7px rgba(0, 0, 0, 0.7);
 	padding: 5vh 3vw;
 }
 .container{ background-color: #ffffff; padding: 5vh 3vw; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0, 0, 0, 0.1); }
-
 ._heading{ border-bottom: 1px solid #fff; }
 
+.grid-left{ border-radius: 10px 0 0 0; }
+.grid-right{ border-radius: 0 10px 0 0; }
+.grid-bottom{ border-radius: 0 0 10px 10px; }
+@media (max-width: 768px){
+.grid-left{ border-radius: 10px 10px 0 0; }
+.grid-right{ border-radius: 0; }
+.grid-bottom{ border-radius: 0 0 10px 10px; }
+}
+.grid-block{
+	background-color: rgba(50, 50, 50, 0.5);
+	text-align: center;
+	color: #ffffff;
+}
 /* Logo animation */
 @keyframes upDown {
     0% { transform: translate(0, 0) }
