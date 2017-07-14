@@ -59,6 +59,9 @@
 	color: #ffffff;
 	font-size: 0.75em;
 }
+.transparent{
+	filter: opacity(0);
+}
 /* Logo animation */
 @keyframes upDown {
     0% { transform: translate(0, 0) }
