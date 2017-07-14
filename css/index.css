@@ -57,6 +57,7 @@
 	background-color: rgba(50, 50, 50, 0.5);
 	text-align: center;
 	color: #ffffff;
+	font-size: 0.9em;
 }
 /* Logo animation */
 @keyframes upDown {
