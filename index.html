@@ -21,11 +21,11 @@
 	</div>
 	
 	<div class="main" id="info">
-		<div class="container">
+		<!-- <div class="container"> -->
 			<!-- Grid -->
-			<h2>Grid</h2>
 			<div class="lg-grid-container" id="grids">
 				<div class="lg-grid-col-12">
+					<h2>Grid</h2>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec commodo nisi nec nibh faucibus porta. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
 					<div class="lg-button _red toggleSpacing">Toggle spacing</div>
 				</div>		
@@ -44,8 +44,8 @@
 			</div>
 			<hr />
 			<!-- Typography -->
-			<h2>Typography</h2>
 			<div class="lg-grid-container">
+			<div class="lg-grid-col-12"><h2>Typography</h2></div>
 				<div class="lg-grid-col-7">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec commodo nisi nec nibh faucibus porta. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
 				</div>
@@ -60,12 +60,12 @@
 			</div>
 			<hr />
 			<!-- Forms -->
-			<h2 class="_heading">Forms</h2>
-				<p>
-				  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec commodo nisi nec nibh faucibus porta. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-				</p>
+			<div class="lg-grid-container">
+				<div class="lg-grid-col-12">
+					<h2>Forms</h2>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec commodo nisi nec nibh faucibus porta. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+				</div>
 				<form>
-					<div class="lg-grid-container">
 						<div class="lg-grid-col-6">
 							<label for="lg-name">Text</label><br />
 							<input type="text" placeholder="Name" id="lg-name">
@@ -78,8 +78,6 @@
 								<option value="Option 3">Option 3</option>
 							</select>
 						</div>
-					</div>
-					<div class="lg-grid-container">
 						<div class="lg-grid-col-12">
 							<label for="lg-radio">Radio button</label><br />
 							<input type="radio" name="lg-radio" id="lg-radio-1" /><label for="lg-radio-1">Radio 1</label>
@@ -92,17 +90,15 @@
 							<input type="checkbox" name="lg-radio" id="lg-check-2" /><label for="lg-check-2">Checkbox 2</label>
 							<input type="checkbox" name="lg-radio" id="lg-check-3" /><label for="lg-check-3">Checkbox 3</label>
 						</div>
-					</div>
-					<div class="lg-grid-container">
 						<div class="lg-grid-col-12">
 							<label for="lg-textarea">Textarea</label><br />
 							<textarea id="lg-textarea" placeholder="Something..."></textarea>
 							<input type="submit" class="lg-button _blue _fadeIn" value="Submit">
 						</div>
-					</div>
 				</form>
+			</div>
 			<hr>
-		</div>
+		<!-- </div> -->
 	</div>
 	
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>

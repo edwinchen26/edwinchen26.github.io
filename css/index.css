@@ -42,7 +42,7 @@
 	box-shadow: inset 0 7px 9px -7px rgba(0, 0, 0, 0.7);
 	padding: 5vh 3vw;
 }
-.container{ background-color: #ffffff; padding: 5vh 3vw; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0, 0, 0, 0.1); }
+.lg-grid-container{ background-color: #ffffff; padding: 5vh 3vw; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0, 0, 0, 0.1); }
 ._heading{ border-bottom: 1px solid #fff; }
 
 .grid-left{ border-radius: 10px 0 0 0; }
