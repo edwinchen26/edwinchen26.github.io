@@ -1,0 +1,72 @@
+<!-- Agregar los puntos -->
+<hr>
+<div class="lg-grid-col-12">
+<h6>Agregar los puntos</h6>
+	<div class="lg-grid-col-6">
+		Punto inicial: <br />
+		<input id="x_inicial" placeholder="X inicial" type="number" required>
+		<input id="y_inicial" placeholder="Y inicial" type="number" required>
+	</div>
+	
+	<div class="lg-grid-col-6">
+		Punto final: <br />
+		<input id="x_final" placeholder="X final" type="number" required>
+		<input id="y_final" placeholder="Y final" type="number" required>
+	</div>
+	<div class="lg-grid-col-12 right" style="margin-top: 0;">
+	<input type="submit" value="Graficar" onClick="do_dda();" class="lg-button _purple _fadeIn" disabled="disabled">
+	<input type="submit" value="Limpiar" onClick="limpiar();" class="lg-button _dark _fadeIn" disabled="disabled">
+	</div>
+</div>
+
+<!-- Tabla con las iteraciones -->
+<div class="lg-grid-col-12">
+<h6>Puntos calculados</h6>
+<table>
+<thead>
+	<tr>
+		<th>#</th>
+		<th>X</th>
+		<th>Y</th>
+	</tr>
+</thead>
+	<tbody id="contenido_tabla">
+	<!-- Aqui se incluira los valores que se van calculando segun la opción seleccionada -->
+	</tbody>
+</table>
+</div>
+	
+<!-- La gráfica -->
+<div class="lg-grid-col-12" id="grafica">
+<h6>Gráfica</h6>
+	<div class="grafica"></div>
+</div>
+<center><i class="fa fa-chevron-up fa-3x" aria-hidden="true" data-scrollTo="get_started" style="cursor: pointer;"></i></center>
+
+<script src="js/dda.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$("[data-scrollTo]").click(function(){
+		var div = $(this).attr("data-scrollTo");
+		$('html,body').animate({ scrollTop: $("#"+div).offset().top}, 'slow');
+	});
+
+	// Función para limpiar los campos
+	function limpiar(){
+	document.getElementById('x_inicial').value = "";
+	document.getElementById('y_inicial').value = "";
+	document.getElementById('x_final').value = "";
+	document.getElementById('y_final').value = "";
+	$("input[type=submit]").prop("disabled",true);
+	}
+	
+	// Función de verificación de los campos
+	$("input[type=number]").keyup(function(){
+		$("input[type=number]").each(function(){
+			if( $(this).val().length !== 0 ) {
+				$("input[type=submit]").prop("disabled",false);
+			}else{
+				$("input[type=submit]").prop("disabled",true);
+			}
+		});
+	});
+</script>
