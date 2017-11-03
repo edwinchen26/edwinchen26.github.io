@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IA</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+</head>
+<body>
+
+	<header>
+		<div class="icon help"><i class="fa fa-question fa-2x" aria-hidden="true"></i></div>
+		<div class="icon made_by"><i class="fa fa-code fa-2x" aria-hidden="true"></i></div>
+	</header>
+    <div class="container introduction">
+		<h1>¡Bienvenido!</h1>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae congue nulla. Donec cursus, erat rhoncus ultricies vulputate, nisl ante vulputate odio, sed egestas ex nunc a urna.</p>
+		<input type="submit" class="start_quiz" value="Comenzar quiz!" onClick="startQuiz()">
+	</div>
+	<div class="container questions">
+		<div id="showQuestion"></div>
+		<div id="questionOptions"></div>
+		<input type="submit" class="next" value="Siguiente">
+	</div>
+	<div class="result">
+		<div class="resultContent" id="scoreChart"></div>
+		<div class="resultContent" id="tableScore">
+			<table class="u-full-width">
+			  <thead>
+				<tr>
+				  <th>Área</th>
+				  <th>Porcentaje</th>
+				</tr>
+			  </thead>
+			  <tbody id="tabla_datos">
+			  </tbody>
+			</table>
+		</div>
+	</div>
+
+<script src="js/chart.js" type="text/javascript"></script>
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+</body>
+</html>
