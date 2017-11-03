@@ -13,12 +13,16 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
 }
 
+html{
+	min-height: 100%;
+}
+
 body{
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	background: url("../images/background.png"), linear-gradient(to bottom right, rgba(22, 160, 133, 1), rgba(26, 188, 156, 1)) repeat;
-    background-attachment: fixed;
+	background: url("../images/background.png"), linear-gradient(to bottom right, rgba(22, 160, 133, 1), rgba(26, 188, 156, 1)) fixed;
+	background-size: auto 100%;
 	font-family: Cabin;
 }
 
