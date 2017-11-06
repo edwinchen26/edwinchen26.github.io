@@ -14,7 +14,6 @@ var questions = [{
 }, {
     question: "Seleccionar, capacitar y motivar al personal de una organización/empresa.",
     areas: "Economía"
-	/*
 }, {
     question: "Realizar excavaciones para descubrir restos del pasado.",
     areas: "Ciencias Sociales"
@@ -93,7 +92,6 @@ var questions = [{
 }, {
     question: "Mejorar la imagen facial y corporal de las personas aplicando diferentes técnicas.",
     areas: "Ciencias Naturales"
-	*/
 }];
 
 var currentQuestion = 0;
@@ -174,11 +172,11 @@ function showResult(){
 	for(var i = 0; i < areas.length; i++){
 		totalScore += areas[i];
 	}
-	$("#tabla_datos").append('<tr><td style="text-align: left">Área 1: Arte y Creatividad</td><td>'+Math.round((areas[0]/totalScore)*100)+'%</td></tr>');
-	$("#tabla_datos").append('<tr><td style="text-align: left">Área 2: Ciencias Sociales</td><td>'+Math.round((areas[1]/totalScore)*100)+'%</td></tr>');
-	$("#tabla_datos").append('<tr><td style="text-align: left">Área 3: Economía, Administración y Financiero</td><td>'+Math.round((areas[2]/totalScore)*100)+'%</td></tr>');
-	$("#tabla_datos").append('<tr><td style="text-align: left">Área 4: Ciencia y Tecnología</td><td>'+Math.round((areas[3]/totalScore)*100)+'%</td></tr>');
-	$("#tabla_datos").append('<tr><td style="text-align: left">Área 5: Ciencias Naturales, Biología y Medio Ambiente</td><td>'+Math.round((areas[4]/totalScore)*100)+'%</td></tr>');
+	$("#tabla_datos").append('<tr><td style="text-align: left">Área 1: Arte y Creatividad</td><td>'+Math.round(((areas[0]/totalScore)*100) * 10) / 10+'%</td></tr>');
+	$("#tabla_datos").append('<tr><td style="text-align: left">Área 2: Ciencias Sociales</td><td>'+Math.round(((areas[1]/totalScore)*100) * 10) / 10+'%</td></tr>');
+	$("#tabla_datos").append('<tr><td style="text-align: left">Área 3: Economía, Administración y Financiero</td><td>'+Math.round(((areas[2]/totalScore)*100) * 10) / 10+'%</td></tr>');
+	$("#tabla_datos").append('<tr><td style="text-align: left">Área 4: Ciencia y Tecnología</td><td>'+Math.round(((areas[3]/totalScore)*100) * 10) / 10+'%</td></tr>');
+	$("#tabla_datos").append('<tr><td style="text-align: left">Área 5: Ciencias Naturales, Biología y Medio Ambiente</td><td>'+Math.round(((areas[4]/totalScore)*100) * 10) / 10+'%</td></tr>');
 }
 
 function drawChart() {
@@ -202,6 +200,6 @@ function drawChart() {
   // 'vAxis': { textStyle: { color: '#ffffff' }, titleTextStyle: { color: '#ffffff' } }
   };
 
-  var chart = new google.visualization.ColumnChart(document.getElementById('scoreChart'));
+  var chart = new google.visualization.PieChart(document.getElementById('scoreChart'));
   chart.draw(data, options);
 }
