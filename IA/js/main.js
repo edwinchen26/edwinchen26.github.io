@@ -134,7 +134,7 @@ $(document).ready(function(){
 			}
 		}else{
 			isOver = false;
-			alert("Vamos de nuevo!");
+			$(".result").fadeOut('fast');
 			resetQuiz();
 			showQuestion();
 		}
@@ -155,10 +155,19 @@ function showQuestion(){
 	$('<p><input type="radio" id="YesAnswer" name="question" value="true"><label for="YesAnswer">Me interesa</label></p>').appendTo("#questionOptions");
 	$('<p><input type="radio" id="NoAnswer" name="question" value="false"><label for="NoAnswer">No me interesa</label></p>').appendTo("#questionOptions");
 	$(".container.questions").fadeIn('slow');
+	if(currentQuestion == (questions.length - 1)){
+		$(".questions").find(".next").val("Finalizar");
+	}
 }
 
 function resetQuiz(){
 	currentQuestion = 0;
+	$(".questions").find(".next").val("Siguiente");
+	for(i = 0; i < 5; i++){
+		areas[i] = 0;
+	}
+	$("#tabla_datos").html("");
+	$("#showAreasInfo").html("");
 }
 
 function showResult(){
@@ -172,21 +181,33 @@ function showResult(){
 	for(var i = 0; i < areas.length; i++){
 		totalScore += areas[i];
 	}
-	$("#tabla_datos").append('<tr><td style="text-align: left">Área 1: Arte y Creatividad</td><td>'+Math.round(((areas[0]/totalScore)*100) * 10) / 10+'%</td></tr>');
-	$("#tabla_datos").append('<tr><td style="text-align: left">Área 2: Ciencias Sociales</td><td>'+Math.round(((areas[1]/totalScore)*100) * 10) / 10+'%</td></tr>');
-	$("#tabla_datos").append('<tr><td style="text-align: left">Área 3: Economía, Administración y Financiero</td><td>'+Math.round(((areas[2]/totalScore)*100) * 10) / 10+'%</td></tr>');
-	$("#tabla_datos").append('<tr><td style="text-align: left">Área 4: Ciencia y Tecnología</td><td>'+Math.round(((areas[3]/totalScore)*100) * 10) / 10+'%</td></tr>');
-	$("#tabla_datos").append('<tr><td style="text-align: left">Área 5: Ciencias Naturales, Biología y Medio Ambiente</td><td>'+Math.round(((areas[4]/totalScore)*100) * 10) / 10+'%</td></tr>');
+	
+	var quizAreas = ["Arte y Creatividad","Ciencias Sociales","Economía, Administración y Financiero","Ciencia y Tecnología","Ciencias Naturales, Biología y Medio Ambiente"];
+	var quizAreasInfo = [
+	"Diseño Gráfico, Diseño y Decoración de Interiores, Diseño de Jardines, Diseño de Modas, Diseño de Joyas, Artes Plásticas (Pintura, Escultura, Danza, Teatro, Artesanía, Cerámica), Dibujo Publicitario, Restauración y Museología, Modelaje, Fotografía, Fotografía Digital, Gestión Gráfica y Publicitaria, Locución y Publicidad, Actuación, Camarografía, Arte Industrial, Producción Audiovisual y Multimedia, Comunicación y Producción en Radio y Televisión, Diseño del Paisaje, Cine y Video, Comunicación Escénica para televisión.",
+	"Psicología en general, Trabajo Social, Idiomas, Educación Internacional, Historia y Geografía, Periodismo, Periodismo Digital, Derecho, Ciencias Políticas, Sociología, Antropología, Arqueología, Gestión Social y Desarrollo, Consejería Familiar, Comunicación y Publicidad, Administración Educativa, Educación Especial, Psicopedagogía, Estimulación Temprana, Traducción Simultánea, Lingüística, Educación de Párvulos, Bibliotecología, Museología, Relaciones Internacionales y Diplomacia, Comunicación Social con mención en Marketing y Gestión de Empresas, Redacción Creativa y Publicitaria, Relaciones Públicas y Comunicación Organizacional; Hotelería y Turismo; Teología, Institución Sacerdotal.",
+	"Administración de Empresas, Contabilidad, Auditoría, Ventas, Marketing Estratégico, Gestión y Negocios Internacionales, Gestión Empresarial, Gestión Financiera, Ingeniería Comercial, Comercio Exterior, Banca y Finanzas, Gestión de Recursos Humanos, Comunicaciones Integradas en Marketing, Administración de Empresas Ecoturísticas y de Hoteleras, Ciencias Económicas y Financieras, Administración y Ciencias Políticas, Ciencias Empresariales, Comercio Electrónico, Emprendedores, Gestión de Organismos Públicos (Municipios, Ministerios, etcétera.), Gestión de Centros Educativos.",
+	"Ingeniería en Sistemas Computacionales, Geología, Ingeniería Civil, Arquitectura, Electrónica, Telemática, Telecomunicaciones, Ingeniería Mecatrónica (Robótica), Imagen y Sonido, Minas, Petróleo y Metalurgia, Ingeniería Mecánica, Ingeniería Industrial, Física, Matemáticas Aplicadas, Ingeniería en Estadística, Ingeniería Automotriz, Biotecnología Ambiental, Ingeniería Geográfica, Carreras Militares (Marina, Aviación, Ejército), Ingeniería en Costas y Obras Portuarias, Estadística Informática, Programación y Desarrollo de Sistemas, Tecnología en Informática Educativa, Astronomía, Ingeniería en Ciencias Geográficas y Desarrollo Sustentable.",
+	"Biología, Bioquímica, Farmacia, Biología Marina, Bioanálisis, Biotecnología, Ciencias Ambientales, Zootecnia, Veterinaria, Nutrición y Estética, Cosmetología, Dietética y Estética, Medicina, Obstetricia, Urgencias Médicas, Odontología, Enfermería, Tecnología, Oceanografía y Ciencias Ambientales, Médica, Agronomía, Horticultura y Fruticultura, Ingeniería de Alimentos, Gastronomía, Chef, Cultura Física, Deportes y Rehabilitación, Gestión Ambiental, Ingeniería Ambiental, Optometría, Homeopatía, Reflexología."
+	];
+	for(i = 0; i < 5; i++){
+		if((Math.round(((areas[i]/totalScore)*100) * 10) / 10) == "0"){
+			$("#tabla_datos").append('<tr style="opacity: 0.2;"><td style="text-align: left;">Área '+(i+1)+': '+quizAreas[i]+'</td><td>'+Math.round(((areas[i]/totalScore)*100) * 10) / 10+'%</td></tr>');
+		}else{
+			$("#tabla_datos").append('<tr><td style="text-align: left">Área '+(i+1)+': '+quizAreas[i]+'</td><td>'+Math.round(((areas[i]/totalScore)*100) * 10) / 10+'%</td></tr>');
+			$("#showAreasInfo").append('<p><h3>Área '+(i+1)+': '+quizAreas[i]+'</h3>'+quizAreasInfo[i]+'</p>');
+		}
+	}
 }
 
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
-  ['Area', 'Puntaje', {role: 'style'}],
-  ['Área 1', areas[0], '#4b4b4b'],
-  ['Área 2', areas[1], '#4b4b4b'],
-  ['Área 3', areas[2], '#4b4b4b'],
-  ['Área 4', areas[3], '#4b4b4b'],
-  ['Área 5', areas[4], '#4b4b4b']
+  ['Area', 'Puntaje'],
+  ['Área 1', areas[0]],
+  ['Área 2', areas[1]],
+  ['Área 3', areas[2]],
+  ['Área 4', areas[3]],
+  ['Área 5', areas[4]]
 ]);
 
   var options = {
@@ -195,9 +216,7 @@ function drawChart() {
   'fontName': 'Cabin',
   'fontSize': 20,
   'backgroundColor': { fill: 'transparent' },
-  // 'titleTextStyle': { color: '#ffffff' },
-  // 'hAxis': { textStyle: { color: '#ffffff' }, titleTextStyle: { color: '#ffffff' } },
-  // 'vAxis': { textStyle: { color: '#ffffff' }, titleTextStyle: { color: '#ffffff' } }
+  'tooltip' : { trigger: 'none'}
   };
 
   var chart = new google.visualization.PieChart(document.getElementById('scoreChart'));
