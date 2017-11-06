@@ -216,7 +216,7 @@ function drawChart() {
   'fontName': 'Cabin',
   'fontSize': 20,
   'backgroundColor': { fill: 'transparent' },
-  'tooltip' : { trigger: 'none'}
+  // 'tooltip' : { trigger: 'none'}
   };
 
   var chart = new google.visualization.PieChart(document.getElementById('scoreChart'));
