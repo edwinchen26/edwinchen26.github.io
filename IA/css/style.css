@@ -36,10 +36,11 @@ header{
 header .icon{
 	color: rgba(255, 255, 255, 0.5);
 	display: inline-block;
-	margin-left: 20px;
+	margin-left: 10px;
 	cursor: pointer;
 	transition: linear 0.3s;
 }
+
 header .icon:hover{ color: rgba(255, 255, 255, 1); text-shadow: 1px 1px 2px #08715d; }
 
 .container{
@@ -74,6 +75,8 @@ header .icon:hover{ color: rgba(255, 255, 255, 1); text-shadow: 1px 1px 2px #087
 }
 
 .resultContent{
+	width: 100%; 
+	min-height: 300px;
 	background-color: #ffffff;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.35), 0 1px 2px rgba(0, 0, 0, 0.2);
 }
@@ -177,5 +180,9 @@ body{
 	margin: 20vh auto;
 	font-size: 1.25em;
 	box-sizing: border-box;
+}
+
+.result{
+	width: 95%;
 }
 }

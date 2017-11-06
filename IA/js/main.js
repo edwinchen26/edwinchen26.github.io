@@ -14,20 +14,21 @@ var questions = [{
 }, {
     question: "Seleccionar, capacitar y motivar al personal de una organización/empresa.",
     areas: "Economía"
+	/*
 }, {
     question: "Realizar excavaciones para descubrir restos del pasado.",
     areas: "Ciencias Sociales"
 }, {
-    question: "Diseñar y planificar la producción masiva de artículos como muebles, autos, equipos de oficina, empaques y envases para alimentos y otros.",
+    question: "Diseñar programas de computación y explorar nuevas aplicaciones tecnológicas para uso del internet.",
     areas: "Ciencia y Tecnología"
 }, {
-    question: "Organizar eventos y atender a sus asistentes.",
+    question: "Defender a clientes individuales o empresas en juicios de diferentes naturaleza.",
     areas: "Ciencias Sociales"
 }, {
     question: "Controlar ingresos y egresos de fondos y presentar el balance final de una institución.",
     areas: "Economía"
 }, {
-    question: "Investigar y probar nuevos productos farmacéuticos.",
+    question: "Revisar y dar mantenimiento a artefactos eléctricos, electrónicos y computadoras.",
     areas: "Ciencia y Tecnología"
 }, {
     question: "Investigar las causas y efectos de los trastornos emocionales.",
@@ -42,10 +43,10 @@ var questions = [{
     question: "Prepararse para ser modelo profesional.",
     areas: "Arte y Creatividad"
 }, {
-    question: "Elaborar mapas, planos e imágenes para el estudio y análisis de datos geográficos.",
+    question: "Administrar y ordenar (planificar) adecuadamente la ocupación del espacio físico de ciudades, países, etc... utilizando imágenes de satélites y mapas.",
     areas: "Ciencia y Tecnología"
 }, {
-    question: "Diseñar juegos interactivos electrónicos para computadora.",
+    question: "Tocar un instrumento y componer música.",
     areas: "Arte y Creatividad"
 }, {
     question: "Organizar un plan de distribución y venta de un gran almacén.",
@@ -63,7 +64,7 @@ var questions = [{
     question: "Estudiar idiomas extranjeros –actuales y antiguos- para hacer traducción.",
     areas: "Ciencias Sociales"
 }, {
-    question: "Restaurar piezas y obras de arte.",
+    question: "Diseñar ropa para niños, jóvenes y adultos.",
     areas: "Arte y Creatividad"
 }, {
     question: "Enseñar a niños de 0 a 5 años.",
@@ -75,7 +76,7 @@ var questions = [{
     question: "Administrar una empresa (familiar, privada o pública).",
     areas: "Economía"
 }, {
-    question: "Ejecutar proyectos de extracción minera y metalúrgica.",
+    question: "Explorar el espacio sideral, los planetas, características y componentes.",
     areas: "Ciencia y Tecnología"
 }, {
     question: "Fotografiar hechos históricos, lugares significativos, rostros, paisajes para el área publicitaria, artística, periodística y social.",
@@ -92,6 +93,7 @@ var questions = [{
 }, {
     question: "Mejorar la imagen facial y corporal de las personas aplicando diferentes técnicas.",
     areas: "Ciencias Naturales"
+	*/
 }];
 
 var currentQuestion = 0;
@@ -172,7 +174,6 @@ function showResult(){
 	for(var i = 0; i < areas.length; i++){
 		totalScore += areas[i];
 	}
-	alert(totalScore);
 	$("#tabla_datos").append('<tr><td style="text-align: left">Área 1: Arte y Creatividad</td><td>'+Math.round((areas[0]/totalScore)*100)+'%</td></tr>');
 	$("#tabla_datos").append('<tr><td style="text-align: left">Área 2: Ciencias Sociales</td><td>'+Math.round((areas[1]/totalScore)*100)+'%</td></tr>');
 	$("#tabla_datos").append('<tr><td style="text-align: left">Área 3: Economía, Administración y Financiero</td><td>'+Math.round((areas[2]/totalScore)*100)+'%</td></tr>');
@@ -193,8 +194,6 @@ function drawChart() {
   var options = {
   'legend': 'left',
   'title': 'Puntación obtenida en el test',
-  'width': '100%',
-  'height': 300,
   'fontName': 'Cabin',
   'fontSize': 20,
   'backgroundColor': { fill: 'transparent' },
