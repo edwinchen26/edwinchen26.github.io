@@ -192,6 +192,20 @@ header .search-box button{
 /* Main structure: Footer */
 footer{
 	width: 100%;
-	height: 200px;
+	padding: 2% 2% 0 2%;
 	background-color: #22313F;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+  align-items: flex-start;
+	font: normal 1.2em 'Quicksand', sans-serif;
+	color: #ffffff;
 }
+footer h3{ margin-bottom: 5px; }
+footer a{ color: #ffffff; text-decoration: none; transition: 0.3s; }
+footer a:hover{ color: #2ECC71; }
+footer .social_media i{	font-size: 1.5em; margin-right: 5px; transition: 0.3s; }
+footer .social_media i.fa-whatsapp:hover{ cursor: pointer; color: #2ECC71; }
+footer .social_media i.fa-facebook:hover{ cursor: pointer; color: #446CB3; }
+footer .social_media i.fa-instagram:hover{ cursor: pointer; color: #EC644B; }
+footer .disclaimer{ width: 100%; display: inline-block; font: normal 0.8em 'Quicksand', sans-serif; margin: 20px auto 10px auto; text-align: center; color: rgba(255, 255, 255, .8);}
