@@ -16,8 +16,6 @@ body{
 	font: normal 1em 'Quicksand', sans-serif;
 }
 
-body audio{ display: none; }
-
 .modal{
 	max-width: 320px;
 	color: #ffffff;
@@ -164,7 +162,7 @@ header .search-box button{
 .container .box{
   width: calc(100% / 3);
   max-height: 100%;
-  margin: 5% 0;
+  margin: 3% 0;
   padding: 1%;
   font-size: 0.5em;
   text-align: center;
