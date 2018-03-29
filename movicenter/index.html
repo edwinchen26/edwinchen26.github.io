@@ -7,8 +7,11 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Quicksand:500" >
+    <link rel="stylesheet" type="text/css" href="assets/css/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/slick-theme.css"/>
   </head>
   <body>
+  <div class="modal"></div>
     <header>
       <nav>
         <logo><img src="assets/images/logo.png" width="280"></logo>
@@ -27,15 +30,14 @@
     </header>
 
     <div class="container">
+    <audio id="alert"><source src="assets/audio/alert.mp3" type="audio/mpeg"></audio> 
       <div class="slider">
-        <i class="controls fas fa-chevron-left"></i>
-          <div class="promo">
-            <img src="assets/images/promo.jpg">
-          </div>
-        <i class="controls fas fa-chevron-right"></i>
+        <img src="assets/images/promo1.jpg">
+        <img src="assets/images/promo2.jpg">
+        <img src="assets/images/promo3.jpg">
+        <img src="assets/images/promo4.jpg">
       </div>
 
-      <div class="content">
         <div id="featured">
           <span class="heading">Lo último: </span>
           <div class="products">
@@ -43,36 +45,35 @@
               <img src="assets/images/product1.jpg" alt="Producto">
               <span class="productName">Cover Ultra – iPhone 6/6S/7/8</span>
               <span class="price">14.99</span>
-              <button class="buy" onClick="alert('Agregado al carrito!')">Comprar</button>
+              <button class="buy" data-name="Cover Ultra – iPhone 6/6S/7/8">Comprar</button>
             </div>
             <div class="box">
               <img src="assets/images/product2.png" alt="Producto">
               <span class="productName">Samsung Galaxy S9 – 64 GB</span>
               <span class="price">749.99</span>
-              <button class="buy" onClick="alert('Agregado al carrito!')">Comprar</button>
+              <button class="buy" data-name="Samsung Galaxy S9 – 64 GB">Comprar</button>
             </div>
             <div class="box">
               <img src="assets/images/product3.png" alt="Producto">
               <span class="productName">Essential PH1 – 128 GB</span>
               <span class="price">449.99</span>
-              <button class="buy" onClick="alert('Agregado al carrito!')">Comprar</button>
+              <button class="buy" data-name="Essential PH1 – 128 GB">Comprar</button>
             </div>
             <div class="box">
               <img src="assets/images/product4.png" alt="Producto">
               <span class="productName">Xiaomi Mi Mix 2 – 128 GB</span>
               <span class="price">749.99</span>
-              <button class="buy" onClick="alert('Agregado al carrito!')">Comprar</button>
+              <button class="buy" data-name="Xiaomi Mi Mix 2 – 128 GB">Comprar</button>
             </div>
             <div class="box">
               <img src="assets/images/product5.png" alt="Producto">
               <span class="productName">Razer Phone – 128 GB</span>
               <span class="price">649.99</span>
-              <button class="buy" onClick="alert('Agregado al carrito!')">Comprar</button>
+              <button class="buy" data-name="Razer Phone – 128 GB">Comprar</button>
             </div>
-
           </div>
         </div>
-      </div>
+        
     </div>
 
     <footer>
@@ -94,5 +95,31 @@
       </div>
       <div class="disclaimer">© 2018 Movicenter Panamá | Todos los derechos reservados </div>
     </footer>
+    
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script type="text/javascript" src="assets/js/slick.min.js"></script>
+  <script type="text/javascript">
+    $("button.buy").click(function(){
+      var name = $(this).attr("data-name");
+      var item = $('<div><i>'+name+'</i> se agregó al carrito.</div>');
+      var audio = document.getElementById('alert');
+      $('.modal').append(item.hide().fadeIn(1000));
+      audio.play();
+      setTimeout(function(){ item.fadeOut(500) }, 5000);
+    });
+    $(document).on('click', '.modal div', function(){ $(this).fadeOut(); });
+    
+    $('.slider').slick({
+      dots: true,
+      infinite: true,
+      slidesToShow: 1,
+      autoplay: true,
+      autoplaySpeed: 5000,
+      speed: 500,
+      fade: true,
+      cssEase: 'linear',
+      arrows: false
+    });
+  </script>
   </body>
 </html>
