@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Movicenter - Inicio</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Quicksand:500" >
+  </head>
+  <body>
+    <header>
+      <nav>
+        <logo><img src="assets/images/logo.png" width="280"></logo>
+        <ul>
+          <li>Inicio</li>
+          <li>Productos</li>
+          <li>Contacto</li>
+          <li><i class="fas fa-user"></i></li>
+          <li><i class="fas fa-shopping-cart"></i></li>
+        </ul>
+      </nav>
+      <div class="search-box">
+        <input id="search_bar" type="text" placeholder="Buscar producto..." value="">
+        <button onClick="alert(document.getElementById('search_bar').value)">Buscar</button>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="slider">
+        <i class="controls fas fa-chevron-left"></i>
+          <div class="promo">
+            <img src="assets/images/promo.jpg">
+          </div>
+        <i class="controls fas fa-chevron-right"></i>
+      </div>
+
+      <div class="content">
+        <div id="featured">
+          <span class="heading">Lo último: </span>
+          <div class="products">
+            <div class="box">
+              <img src="assets/images/product1.jpg" alt="Producto">
+              <span class="productName">Cover Ultra – iPhone 6/6S/7/8</span>
+              <span class="price">14.99</span>
+              <button class="buy" onClick="alert('Agregado al carrito!')">Comprar</button>
+            </div>
+            <div class="box">
+              <img src="assets/images/product2.png" alt="Producto">
+              <span class="productName">Samsung Galaxy S9 – 64 GB</span>
+              <span class="price">749.99</span>
+              <button class="buy" onClick="alert('Agregado al carrito!')">Comprar</button>
+            </div>
+            <div class="box">
+              <img src="assets/images/product3.png" alt="Producto">
+              <span class="productName">Essential PH1 – 128 GB</span>
+              <span class="price">449.99</span>
+              <button class="buy" onClick="alert('Agregado al carrito!')">Comprar</button>
+            </div>
+            <div class="box">
+              <img src="assets/images/product4.png" alt="Producto">
+              <span class="productName">Xiaomi Mi Mix 2 – 128 GB</span>
+              <span class="price">749.99</span>
+              <button class="buy" onClick="alert('Agregado al carrito!')">Comprar</button>
+            </div>
+            <div class="box">
+              <img src="assets/images/product5.png" alt="Producto">
+              <span class="productName">Razer Phone – 128 GB</span>
+              <span class="price">649.99</span>
+              <button class="buy" onClick="alert('Agregado al carrito!')">Comprar</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <!-- Contenido pie de página -->
+    </footer>
+  </body>
+</html>
