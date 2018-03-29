@@ -30,7 +30,6 @@
     </header>
 
     <div class="container">
-    <audio id="alert"><source src="assets/audio/alert.mp3" type="audio/mpeg"></audio> 
       <div class="slider">
         <img src="assets/images/promo1.jpg">
         <img src="assets/images/promo2.jpg">
@@ -102,7 +101,7 @@
     $("button.buy").click(function(){
       var name = $(this).attr("data-name");
       var item = $('<div><i>'+name+'</i> se agregó al carrito.</div>');
-      var audio = document.getElementById('alert');
+      var audio = new Audio('assets/audio/alert.mp3');
       $('.modal').append(item.hide().fadeIn(1000));
       audio.play();
       setTimeout(function(){ item.fadeOut(500) }, 5000);
