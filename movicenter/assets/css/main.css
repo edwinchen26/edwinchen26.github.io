@@ -153,7 +153,7 @@ header .search-box button{
 .container .content .box{
   width: calc(100% / 3);
   max-height: 100%;
-  margin: 3% 0;
+  margin: 5% 0;
   padding: 1%;
   font-size: 0.5em;
   text-align: center;
@@ -165,7 +165,7 @@ header .search-box button{
 .container .content .box img{
   max-width: 150px;
   height: 150px;
-  margin: 0 auto;
+  margin: 5% auto;
   display: block;
 }
 
@@ -174,7 +174,7 @@ header .search-box button{
 .container .content .box span.price:before{ content: '$ '; }
 
 .container .content .box button.buy{
-  width: 80%;
+  padding: 0 10%;
   height: 40px;
   font: normal 1em/40px 'Quicksand', sans-serif;
   background-color: rgba(38, 194, 129, .8);
