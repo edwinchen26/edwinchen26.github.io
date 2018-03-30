@@ -290,6 +290,6 @@ header .search-box input[type=text]{ padding: 15px 20px; }
 .container .box info span.price{ margin-top: 3px; font-size: 1em; display: inline-block; color: #26A65B; }
 .container .box info span.price:before{ content: '$ '; }
 
-footer{	font: normal .8em 'Quicksand', sans-serif; }
+footer{	font: normal 1em 'Quicksand', sans-serif; }
 
 }
