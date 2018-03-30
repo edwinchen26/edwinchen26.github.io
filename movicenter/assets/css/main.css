@@ -36,10 +36,6 @@ body{
 	display: block;
 }
 
-/* Typography & Font styles
------------------------------------
------------------------------------ */
-
 /* Main structure: Header */
 header{
   width: 100%;
@@ -218,3 +214,80 @@ footer .social_media i.fa-whatsapp:hover{ cursor: pointer; color: #2ECC71; }
 footer .social_media i.fa-facebook:hover{ cursor: pointer; color: #446CB3; }
 footer .social_media i.fa-instagram:hover{ cursor: pointer; color: #EC644B; }
 footer .disclaimer{ width: 100%; display: inline-block; font: normal 0.8em 'Quicksand', sans-serif; margin: 20px auto 10px auto; text-align: center; color: rgba(255, 255, 255, .8);}
+
+
+/* Viewport
+-----------------------------------
+----------------------------------- */
+
+/* Mobile  */
+@media(max-width: 900px){
+
+body{ font: normal 0.85em 'Quicksand', sans-serif; }
+
+header{
+  width: 100%;
+  height: auto;
+	padding: 5% 0;
+  background-color: var(--main-bg-color);
+  position: relative;
+  overflow: visible;
+	z-index: 10;
+}
+header:before{ display: none; }
+header:after{ display: none; }
+
+header nav ul{ display: none; }
+
+header .search-box{ width: 90%; }
+header .search-box input[type=text]{ padding: 15px 20px; }
+
+.container{
+	width: 100%;
+  padding: 0;
+	margin: 0;
+	box-shadow: 0;
+	font: normal 1em 'Quicksand', sans-serif;
+}
+.slick-dotted.slick-slider{ margin-bottom: 50px; }
+
+.container span.heading{ font-size: 1.7em; display: block; clear: both; margin: 30px 3% 10px 3%; }
+
+.container .products{
+  width: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+}
+
+.container .box{
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+	text-align: left;
+  font-size: 1.2em;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+	display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+	align-items: center;
+}
+.container .box:nth-child(2n){ background-color: rgba(250, 250, 250, .8); }
+
+.container .box img{
+	flex-grow: 1;
+  max-width: 150px;
+	margin: 5%;
+  height: 150px;
+}
+
+.container .box info { flex-grow: 1; }
+.container .box info span.productName{ display: block; text-transform: capitalize; margin-top: 5%; }
+.container .box info span.description{ display: block; text-transform: capitalize; font-size: .8em; color: #999; }
+.container .box info span.price{ margin-top: 3px; font-size: 1em; display: inline-block; color: #26A65B; }
+.container .box info span.price:before{ content: '$ '; }
+
+}
