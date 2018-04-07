@@ -41,17 +41,34 @@
       </div>
 
       <!-- CATEGORIES -->
-      <span class="heading">Categorías: </span>
-      <div class="categories">
-        <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        </ul>
-      </div>
+      <ul class="categories" style="margin: 5% 0 3% 0;">
+        <li id="back"><i class="fas fa-angle-left"></i></li>
+        <li>Celulares</li>
+          <ul>
+            <li>Samsung</li>
+            <li>LG</li>
+            <li>Huawei</li>
+          </ul>
+        <li>Tablets</li>
+          <ul>
+            <li>Samsung</li>
+            <li>Apple</li>
+            <li>Huawei</li>
+          </ul>
+        <li>Accesorios</li>
+          <ul>
+            <li>Covers</li>
+            <li>Baterías</li>
+            <li>Protectores de pantalla</li>
+          </ul>
+        <li>Cargadores</li>
+          <ul>
+            <li>Samsung</li>
+            <li>LG</li>
+            <li>Apple</li>
+            <li>Huawei</li>
+          </ul>
+      </ul>
       
       <!-- BEST SELLING -->
       <div id="featured">
@@ -129,30 +146,6 @@
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
   <script type="text/javascript" src="assets/js/slick.min.js"></script>
-  <script type="text/javascript">
-    $("button.buy").click(function(){
-      var name = $(this).attr("data-name");
-      var item = $('<div><i>'+name+'</i> se agregó al carrito.</div>');
-      var audio = new Audio('assets/audio/alert.mp3');
-      $('.modal').append(item.hide().fadeIn(1000));
-      audio.volume = 0.2; 
-      audio.play();
-      setTimeout(function(){ item.fadeOut(500) }, 5000);
-    });
-    $(document).on('click', '.modal div', function(){ $(this).fadeOut(); });
-
-    $('.slider').slick({
-      mobileFirst: true,
-      dots: true,
-      infinite: true,
-      slidesToShow: 1,
-      autoplay: true,
-      autoplaySpeed: 5000,
-      speed: 500,
-      fade: true,
-      cssEase: 'linear',
-      arrows: false
-    });
-  </script>
+  <script type="text/javascript" src="assets/js/script.js"></script>
   </body>
 </html>
