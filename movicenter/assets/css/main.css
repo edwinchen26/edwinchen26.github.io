@@ -359,7 +359,7 @@ header .search-box input[type=text]{ padding: 15px 20px; }
 
 .container span.heading{ font-size: 1.7em; display: block; clear: both; margin: 30px 3% 10px 3%; }
 
-ul.categories { padding: 25px 10px; display: flex; overflow-x: auto; }
+ul.categories { padding: 25px 10px; display: flex; overflow-x: auto; white-space: nowrap; }
 ul.categories li{ font: normal 1.5em 'PT Sans Narrow', sans-serif; }
 ul.categories > li.active + ul{ display: flex; }
 
