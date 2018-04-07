@@ -151,7 +151,8 @@ header .search-box button{
 
 /* --- Categories --- */
 ul.categories{
-	display: block;
+	display: flex;
+	flex: row wrap;
 	list-style: none;
 	padding: 0;
 }
@@ -167,7 +168,7 @@ ul.categories li{
 	cursor: pointer;
 }
 ul.categories li#back{ display: none; background-color: rgba(38, 194, 129, 1); }
-ul.categories li#back.active{ display: inline-block; float: left; }
+ul.categories li#back.active{ display: inline-block; }
 ul.categories > li:hover{ background-color: rgba(1, 152, 117, .8); }
 
 ul.categories > li + ul{ display: none; }
