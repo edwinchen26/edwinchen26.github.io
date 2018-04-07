@@ -361,6 +361,7 @@ header .search-box input[type=text]{ padding: 15px 20px; }
 
 ul.categories { padding: 25px 10px; display: flex; overflow-x: scroll; }
 ul.categories li{ font: normal 1.5em 'PT Sans Narrow', sans-serif; }
+ul.categories > li.active + ul{ display: flex; }
 
 .view{ display: none; }
 
