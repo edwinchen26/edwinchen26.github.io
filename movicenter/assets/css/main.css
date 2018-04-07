@@ -171,7 +171,7 @@ ul.categories li#back.active{ display: inline-block; float: left; }
 ul.categories > li:hover{ background-color: rgba(1, 152, 117, .8); }
 
 ul.categories > li + ul{ display: none; }
-ul.categories > li.active + ul{ display: block; }
+ul.categories > li.active + ul{ display: inline; }
 ul.categories > li.active + ul li{ background-color: rgba(3, 166, 120, 0.7); }
 ul.categories > li.active + ul li:hover{ background-color: rgba(3, 166, 120, 0.8); }
 ul.categories > li.active + ul li.active{ background-color: rgba(3, 166, 120, 1); }
@@ -359,9 +359,8 @@ header .search-box input[type=text]{ padding: 15px 20px; }
 
 .container span.heading{ font-size: 1.7em; display: block; clear: both; margin: 30px 3% 10px 3%; }
 
-ul.categories { padding: 25px 10px; display: flex; overflow-x: auto; white-space: nowrap; }
+ul.categories { padding: 25px 10px; display: flex; flex: row nowrap; overflow-x: auto; white-space: nowrap; }
 ul.categories li{ font: normal 1.5em 'PT Sans Narrow', sans-serif; }
-ul.categories > li.active + ul{ display: flex; }
 
 .view{ display: none; }
 
