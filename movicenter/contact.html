@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Movicenter - Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#8cbd3a">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#8cbd3a">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Quicksand:500" >
+    <link rel="stylesheet" type="text/css" href="assets/css/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/slick-theme.css"/>
+  </head>
+  <body>
+  <div class="modal"></div>
+    <header>
+      <nav>
+        <logo><img src="assets/images/logo.png"></logo>
+        <ul>
+          <a href="index.html"><li>Inicio</li></a>
+          <a href="products.html"><li>Productos</li></a>
+          <a href="contact.html"><li class="active">Contacto</li></a>
+          <li><i class="fas fa-user"></i></li>
+          <li><i class="fas fa-shopping-cart"></i></li>
+        </ul>
+      </nav>
+      <div class="search-box">
+        <input id="search_bar" type="text" placeholder="Buscar producto..." value="">
+        <button onClick="alert(document.getElementById('search_bar').value)">Buscar</button>
+      </div>
+    </header>
+
+    <div class="container" style="display: flex; flex: row nowrap; justify-content: space-evenly;">
+      <!-- CONTACT -->
+        <div class="contactForm">
+          <form method="post">
+          <span class="heading">Contáctenos </span>
+            <label>Nombre: </label>
+             <input type="text" autocomplete="off">
+            <label>Correo: </label>
+             <input type="email" autocomplete="off">
+            <label>Mensaje: </label>
+             <textarea style="height: 180px;"></textarea>
+             
+             <input type="submit" value="Enviar">
+          </form>
+          
+          <span class="heading" style="margin-top: 5%;">Teléfonos: </span>
+            <p style="font-size: 0.7em;">Los Pueblos: +507 6897-8826</p>
+            <p style="font-size: 0.7em;">Condado del Rey: +507 6897-8826</p>
+            <p style="font-size: 0.7em;">El Dorado: +507 6897-8826</p>
+        </div>
+        <div class="map">
+          <span class="heading">Ubicación </span>
+        </div>
+    </div>
+
+    <footer>
+      <div class="social_media">
+        <h3>Síguenos en: </h3>
+        <i class="fab fa-whatsapp" title="Contáctanos por Whatsapp"></i>
+        <i class="fab fa-facebook" title="Síguenos en Facebook"></i>
+        <i class="fab fa-instagram" title="Síguenos en Instagram"></i>
+        <br /><br />
+        <h3>Reparaciones: </h3>
+        <p><a href="#" title="Estado del equipo">Estado del equipo</a></p>
+      </div>
+      <div class="contact">
+        <h3>Más información: </h3>
+        <p><a href="#" title="Contáctanos">Contáctenos</a></p>
+        <p><a href="#" title="Sucursales">Sucursales</a></p>
+        <p><br /><i class="fas fa-phone-square"></i> +507 6808-1234</p>
+        <p><i class="fas fa-envelope-square"></i> correo@correo.com</p>
+      </div>
+      <div class="disclaimer">© 2018 Movicenter Panamá | Todos los derechos reservados </div>
+    </footer>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script type="text/javascript" src="assets/js/slick.min.js"></script>
+  <script type="text/javascript" src="assets/js/script.js"></script>
+  </body>
+</html>
