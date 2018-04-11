@@ -358,7 +358,7 @@ footer .disclaimer{ width: 100%; display: inline-block; font: normal 0.8em 'Quic
 @media(max-height: 680px){
 
 .container{
-	width: 100%;
+	width: 80%;
   padding: 1%;
 	margin: 0;
 	box-shadow: 0;
