@@ -303,7 +303,7 @@ input[type=text], input[type=email], textarea{
 	padding: 10px;
 	font: normal .45em 'Quicksand', sans-serif;
 	border: 2px solid rgba(30, 130, 76, .5);
-	border-radius: 5px; 
+	border-radius: 5px;
 	color: rgba(0, 0, 0, .7);
 }
 input[type=text]:hover, input[type=email]:hover, textarea:hover, input[type=text]:focus, input[type=email]:focus, textarea:focus{ border: 2px solid rgba(30, 130, 76, 1); }
@@ -320,7 +320,7 @@ input[type=submit]{
 	cursor: pointer;
 }
 
-.contactForm{ flex-grow: 1.2; margin: 1%; order: 1; }
+.contactForm{ flex-grow: 1; margin: 1%; order: 1; }
 .map{flex-grow: 1; margin: 1%; order: 2; }
 
 .contactForm span.heading, .map span.heading{
@@ -354,6 +354,17 @@ footer .disclaimer{ width: 100%; display: inline-block; font: normal 0.8em 'Quic
 /* Viewport
 -----------------------------------
 ----------------------------------- */
+
+@media(max-height: 680px){
+
+.container{
+	width: 100%;
+  padding: 1%;
+	margin: 0;
+	box-shadow: 0;
+}
+
+}
 
 /* Mobile  */
 @media(max-width: 900px){
