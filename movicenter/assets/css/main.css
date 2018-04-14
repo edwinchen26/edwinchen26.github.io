@@ -142,8 +142,8 @@ header .search-box button{
 
 .container .slider{
 	width: 100%;
-	max-height: 350px;
 	margin: 0 auto 3% auto;
+	display: block;
 }
 .container .slider img{ width: 100%; }
 
