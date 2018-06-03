@@ -1,0 +1,111 @@
+*{ box-sizing: border-box; cursor: default; }
+body{
+  margin: 0;
+  font-family: 'Press Start 2P', cursive;
+}
+
+:root{
+  --width: 384px;
+  --height: 624px;
+}
+[data-scene]:not(:first-child){ display: none; }
+
+/* -----
+-- ESCENA: PreLoad
+------*/
+.preload{
+  width: var(--width);
+  height: var(--height);
+  background: rgba(0, 0, 0, 1);
+  color: #ffffff;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: preload 2s linear 0s 1;
+  cursor: default;
+}
+.preload p{ font-size: 1em; animation: preload_text .5s linear 1.5s 1; }
+
+@keyframes preload{
+  from{ background: rgba(255, 255, 255, 1); }
+  to{ background: rgba(0, 0, 0, 1); }
+}
+@keyframes preload_text{
+  0%{ font-size: 1em; }
+  50%{ font-size: 1.05em; }
+  100%{ font-size: 1em; }
+}
+
+/* -----
+-- ESCENA: Menú
+------*/
+.menu{
+  width: var(--width);
+  height: var(--height);
+  background: rgba(0, 0, 0, 1);
+}
+
+.menu div{
+  width: 100%;
+  height: 50%;
+  color: #fff;
+  text-align: center;
+  font-size: 0.85em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.menu .menuOptions p{ cursor: pointer; margin: 20px 0; }
+
+
+/* -----
+-- ESCENA: Game
+------*/
+.game{
+  width: var(--width);
+  height: 100%;
+  background: rgba(30, 139, 195, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.game .world{
+  width: 100%;
+  height: 528px;
+  background: rgba(0, 0, 0, .1);
+}
+
+.game .buttons{
+  width: 100%;
+  height: 96px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.game .buttons span{
+  background: url('../sprites/button.png') no-repeat no-repeat;
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+  text-align: center;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, .4);
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-bottom: 2px solid rgba(255, 255, 255, .8);
+  border-radius: 6px;
+}
+
+.game .buttons span.red_btn{ background-position: 0 0;}
+.game .buttons span.red_btn.active{ background-position: -48px 0px; margin-top: 1px; box-shadow: 0px 2px 5px rgba(0, 0, 0, .6); }
+
+.game .buttons span.blue_btn{ background-position: -97px 0;}
+.game .buttons span.blue_btn.active{ background-position: -144px 0px; margin-top: 1px; box-shadow: 0px 2px 5px rgba(0, 0, 0, .6); }
+
+.game .buttons span.green_btn{ background-position: -193px 0;}
+.game .buttons span.green_btn.active{ background-position: -240px 0px; margin-top: 1px; box-shadow: 0px 2px 5px rgba(0, 0, 0, .6); }
+
+.game .buttons span.yellow_btn{ background-position: -289px 0;}
+.game .buttons span.yellow_btn.active{ background-position: -336px 0px; margin-top: 1px; box-shadow: 0px 2px 5px rgba(0, 0, 0, .6); }

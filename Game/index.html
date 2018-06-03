@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Game</title>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+  </head>
+  <body>
+    <!-- Escena: Presentación -->
+
+    <div class="preload" data-scene="preload">
+      <p>Los Manes<br />Studio</p>
+    </div>
+
+
+    <!-- Escena: Menú -->
+    <div class="menu" data-scene="menu">
+      <div class="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Habbo-logo.png" width="160" height="59" alt="Logo">
+      </div>
+      <div class="menuOptions">
+        <p onClick="changeScene('menu', 'game', 500)">Comenzar</p>
+        <p>Instrucciones</p>
+        <p>Créditos</p>
+      </div>
+    </div>
+
+
+    <!-- Escena: Juego -->
+    <div class="game" data-scene="game">
+      <div class="world">
+
+      </div>
+
+      <div class="buttons">
+        <span class="red_btn"></span>
+        <span class="blue_btn"></span>
+        <span class="green_btn"></span>
+        <span class="yellow_btn"></span>
+      </div>
+    </div>
+
+
+    <script type="text/javascript" src="assets/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="assets/js/game.js"></script>
+    <script type="text/javascript" src="assets/js/function.js"></script>
+  </body>
+</html>
