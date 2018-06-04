@@ -8,11 +8,9 @@
   </head>
   <body>
     <!-- Escena: Presentación -->
-
     <div id="box" class="preload" data-scene="preload">
       <p>Los Manes<br />Studio</p>
     </div>
-
 
     <!-- Escena: Menú -->
     <div class="menu" data-scene="menu">
@@ -21,11 +19,33 @@
       </div>
       <div class="menuOptions">
         <p onClick="changeScene('menu', 'game', 500)">Comenzar</p>
-        <p>Instrucciones</p>
-        <p>Créditos</p>
+        <p onClick="changeScene('menu', 'instructions', 500)">Instrucciones</p>
+        <p onClick="changeScene('menu', 'credits', 500)">Créditos</p>
       </div>
     </div>
 
+    <!-- Escena: Instructions -->
+    <div class="instructions" data-scene="instructions">
+      <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisi erat, aliquet vel tellus sed, pharetra consectetur velit. Ut est lacus, facilisis at accumsan in, gravida pretium augue. Vestibulum molestie, libero sed sollicitudin elementum, risus sem aliquet urna, vel cursus nunc erat id velit. Aliquam pellentesque odio et turpis finibus suscipit.</div>
+      <div class="back" onClick="changeScene('instructions', 'menu', 500)">Volver</div>
+    </div>
+
+    <!-- Escena: Credits -->
+    <div class="credits" data-scene="credits">
+      <div class="text">
+        <h3>EQUIPO: </h3>
+        - Oscar Barahona<br />
+        - Edwin Chen<br />
+        - Jahiro Hernández<br />
+        - Fermín Osorio<br />
+        - Dave Pareshbhai<br /><br />
+        <h3>AUDIO: </h3>
+        - DarnuTube <br /><br />
+        <h3>CURSO: </h3>
+        - Animación y Videojuegos<br />
+      </div>
+      <div class="back" onClick="changeScene('credits', 'menu', 500)">Volver</div>
+    </div>
 
     <!-- Escena: Juego -->
     <div class="game" data-scene="game">
