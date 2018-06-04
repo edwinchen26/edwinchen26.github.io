@@ -1,3 +1,4 @@
+
 function setAudio(audio, timeout){
   setTimeout(function(){
     new Audio('assets/sfx/'+audio+'.wav').play();
@@ -12,7 +13,7 @@ function changeScene(from, to, timeout){
 
 /* Onload document */
 $(function(){
-  setAudio('preload', 1500);
+  //setAudio('preload', 1500);
   changeScene('preload', 'menu', 3000);
 
   $(".buttons > span").on('mouseup mousedown', function(){

@@ -58,6 +58,8 @@ body{
   align-items: center;
 }
 .menu .menuOptions p{ cursor: pointer; margin: 20px 0; }
+.menu .menuOptions input[type=radio]{ display: none; }
+.menu .menuOptions input[type=radio] + label { cursor: pointer; margin: 20px 0; }
 
 
 /* -----

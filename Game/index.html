@@ -9,7 +9,7 @@
   <body>
     <!-- Escena: Presentación -->
 
-    <div class="preload" data-scene="preload">
+    <div id="box" class="preload" data-scene="preload">
       <p>Los Manes<br />Studio</p>
     </div>
 
@@ -19,10 +19,15 @@
       <div class="logo">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Habbo-logo.png" width="160" height="59" alt="Logo">
       </div>
-      <div class="menuOptions">
+      <!-- <div class="menuOptions">
         <p onClick="changeScene('menu', 'game', 500)">Comenzar</p>
         <p>Instrucciones</p>
         <p>Créditos</p>
+      </div> -->
+      <div class="menuOptions">
+        <input type="radio" name="menuOptions" id="start" onClick="changeScene('menu', 'game', 500)"><label for="start">Comenzar</label>
+        <input type="radio" name="menuOptions" id="rules" onClick="changeScene('menu', 'game', 500)"><label for="start">Instrucciones</label>
+        <input type="radio" name="menuOptions" id="credits" onClick="changeScene('menu', 'game', 500)"><label for="start">Créditos</label>
       </div>
     </div>
 
