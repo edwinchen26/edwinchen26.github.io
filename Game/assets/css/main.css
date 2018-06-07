@@ -17,6 +17,9 @@ body{
 }
 [data-scene]:not(:first-child){ display: none; }
 
+.mute{ position: absolute; font-size: 1.5em; top: 15px; right: 15px; color: #ffffff; }
+.mute.off{ filter: opacity(0.3); } 
+
 /* -----
 -- ESCENA: PreLoad
 ------*/
@@ -31,6 +34,7 @@ body{
   align-items: center;
   animation: preload 2s linear 0s 1;
   cursor: default;
+  position: relative;
 }
 .preload p{ font-size: 1em; animation: preload_text .5s linear 1.5s 1; }
 
@@ -51,6 +55,7 @@ body{
   width: var(--width);
   height: var(--height);
   background: rgba(0, 0, 0, 1);
+  position: relative;
 }
 
 .menu div{

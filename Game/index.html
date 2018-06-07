@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Game</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/main.css">
   </head>
@@ -15,19 +16,20 @@
     <!-- Escena: Menú -->
     <div class="menu" data-scene="menu">
       <div class="logo">
+        <span class="mute"><i class="fas fa-music"></i></span>
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Habbo-logo.png" width="160" height="59" alt="Logo">
       </div>
       <div class="menuOptions">
-        <p onClick="changeScene('menu', 'game', 500)">Comenzar</p>
-        <p onClick="changeScene('menu', 'instructions', 500)">Instrucciones</p>
-        <p onClick="changeScene('menu', 'credits', 500)">Créditos</p>
+        <p onClick="changeScene('menu', 'game')">Comenzar</p>
+        <p onClick="changeScene('menu', 'instructions')">Instrucciones</p>
+        <p onClick="changeScene('menu', 'credits')">Créditos</p>
       </div>
     </div>
 
     <!-- Escena: Instructions -->
     <div class="instructions" data-scene="instructions">
       <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisi erat, aliquet vel tellus sed, pharetra consectetur velit. Ut est lacus, facilisis at accumsan in, gravida pretium augue. Vestibulum molestie, libero sed sollicitudin elementum, risus sem aliquet urna, vel cursus nunc erat id velit. Aliquam pellentesque odio et turpis finibus suscipit.</div>
-      <div class="back" onClick="changeScene('instructions', 'menu', 500)">Volver</div>
+      <div class="back" onClick="changeScene('instructions', 'menu')">Volver</div>
     </div>
 
     <!-- Escena: Credits -->
@@ -44,25 +46,27 @@
         <h3>CURSO: </h3>
         - Animación y Videojuegos<br />
       </div>
-      <div class="back" onClick="changeScene('credits', 'menu', 500)">Volver</div>
+      <div class="back" onClick="changeScene('credits', 'menu')">Volver</div>
     </div>
 
     <!-- Escena: Juego -->
     <div class="game" data-scene="game">
       <div class="world">
-
+        <span id="score">Points: 0</span><br /><br />
+        <span id="color"></span>
       </div>
 
       <div class="buttons">
-        <span class="red_btn"></span>
-        <span class="blue_btn"></span>
-        <span class="green_btn"></span>
-        <span class="yellow_btn"></span>
+        <span class="red_btn" data-color="red"></span>
+        <span class="blue_btn" data-color="blue"></span>
+        <span class="green_btn" data-color="green"></span>
+        <span class="yellow_btn" data-color="yellow"></span>
       </div>
     </div>
 
 
     <script type="text/javascript" src="assets/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="assets/js/howler.js"></script>
     <script type="text/javascript" src="assets/js/game.js"></script>
     <script type="text/javascript" src="assets/js/function.js"></script>
   </body>
