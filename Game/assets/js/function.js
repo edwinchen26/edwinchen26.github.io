@@ -1,6 +1,7 @@
 // Preload SFX & BGM
 var sfx = new Howl({
   src: ['assets/sfx/intro.mp3'],
+  volume: 1,
   loop: true
 });
 
@@ -12,10 +13,15 @@ function changeScene(from, to, timeout = '500', audio){
   setTimeout(function(){
     if(typeof audio !== 'undefined'){
       $("[data-scene="+from+"]").fadeOut(500, function(){ $("[data-scene="+to+"]").fadeIn(500); });
-      //sfx.stop(); // Stop all SFX
-      //sfx.play();
+      sfx.stop(); // Stop all SFX
+      sfx.play();
     }else{
       $("[data-scene="+from+"]").fadeOut(500, function(){ $("[data-scene="+to+"]").fadeIn(500); });
+    }
+
+    if(to == "game"){
+      var game = new Game();
+      game.generate();
     }
   }, timeout);
 }
@@ -23,12 +29,8 @@ function changeScene(from, to, timeout = '500', audio){
 /* Onload document */
 $(function(){
   // Init preload
-  //setTimeout(function(){ preload.play() }, 1500);
+  setTimeout(function(){ preload.play() }, 1500);
   changeScene('preload', 'menu', 3000, 'intro');
-
-  $(".buttons > span").on('mouseup mousedown', function(){
-    $(this).toggleClass("active");
-  });
 
   // Mute sound
   var playing = true;

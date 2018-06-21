@@ -3,13 +3,14 @@
   <head>
     <meta charset="utf-8">
     <title>Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/main.css">
   </head>
   <body>
     <!-- Escena: Presentación -->
-    <div id="box" class="preload" data-scene="preload">
+    <div class="preload" data-scene="preload">
       <p>Los Manes<br />Studio</p>
     </div>
 
@@ -17,7 +18,9 @@
     <div class="menu" data-scene="menu">
       <div class="logo">
         <span class="mute"><i class="fas fa-music"></i></span>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Habbo-logo.png" width="160" height="59" alt="Logo">
+        <!--
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Habbo-logo.png" width="160" height="59" alt="Logo">
+        -->
       </div>
       <div class="menuOptions">
         <p onClick="changeScene('menu', 'game')">Comenzar</p>
@@ -42,7 +45,7 @@
         - Fermín Osorio<br />
         - Dave Pareshbhai<br /><br />
         <h3>AUDIO: </h3>
-        - DarnuTube <br /><br />
+        - Los Manes <br /><br />
         <h3>CURSO: </h3>
         - Animación y Videojuegos<br />
       </div>
@@ -52,15 +55,15 @@
     <!-- Escena: Juego -->
     <div class="game" data-scene="game">
       <div class="world">
-        <span id="score">Points: 0</span><br /><br />
-        <span id="color"></span>
+        <span id="score">0</span><br /><br />
+        <div class="hero"></div>
       </div>
 
       <div class="buttons">
-        <span class="red_btn" data-color="red"></span>
-        <span class="blue_btn" data-color="blue"></span>
-        <span class="green_btn" data-color="green"></span>
-        <span class="yellow_btn" data-color="yellow"></span>
+        <span class="_red" data-color="red"></span>
+        <span class="_blue" data-color="blue"></span>
+        <span class="_green" data-color="green"></span>
+        <span class="_yellow" data-color="yellow"></span>
       </div>
     </div>
 
