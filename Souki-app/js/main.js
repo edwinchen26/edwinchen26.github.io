@@ -33,6 +33,10 @@ db.collection("contacts").orderBy("first").onSnapshot(function(querySnapshot){
       var item = document.querySelector("#"+change.doc.id);
       item.setAttribute("data-name", change.doc.data().first + " " + change.doc.data().last);
     }
+    if(change.type === "removed"){
+      var item = document.querySelector("#"+change.doc.id);
+      item.remove();
+    }
 
     // Expand cards
     items.addEventListener("click", function(){
