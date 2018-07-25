@@ -10,7 +10,7 @@
   ],
   "gcm_sender_id": "",
   "gcm_user_visible_only": true,
-  "start_url": "Souki-app/index.html?utm_source=homescreen",
+  "start_url": "index.html?utm_source=homescreen",
   "permissions": [
     "gcm"
   ],
