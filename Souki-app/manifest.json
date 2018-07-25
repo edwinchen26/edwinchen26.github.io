@@ -10,11 +10,11 @@
   ],
   "gcm_sender_id": "",
   "gcm_user_visible_only": true,
-  "start_url": "/?utm_source=homescreen",
+  "start_url": "Souki-app/index.html?utm_source=homescreen",
   "permissions": [
     "gcm"
   ],
-  "orientation": "",
+  "orientation": "portrait",
   "display": "standalone",
   "theme_color": "#2ABB9B",
   "background_color": "#2ABB9B"
