@@ -51,7 +51,7 @@ db.collection("contacts").orderBy("first").onSnapshot(function(querySnapshot){
         item.remove();
       });
 
-    if(!querySnapshot.size > 0){ document.querySelector("section").innerHTML = '<div class="empty" style="display: block;"> <img src="logo-high.png"> <span>Your contact list is empty!</span> </div>'; }
+    if(!querySnapshot.size > 0){ document.querySelector("section").innerHTML = '<div class="empty" style="display: block;"> <img src="images/logo-high.png"> <span>Your contact list is empty!</span> </div>'; }
     });
   });
 });
