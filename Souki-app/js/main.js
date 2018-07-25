@@ -34,7 +34,7 @@ db.collection("contacts").orderBy("first").onSnapshot(function(querySnapshot){
       item.setAttribute("data-name", change.doc.data().first + " " + change.doc.data().last);
     }
     if(change.type === "removed"){
-      var item = document.querySelector("#"+change.doc.id);
+      var item = document.getElementById(change.doc.id);
       item.remove();
     }
 
@@ -50,6 +50,8 @@ db.collection("contacts").orderBy("first").onSnapshot(function(querySnapshot){
         var item = document.querySelector("#"+id);
         item.remove();
       });
+
+    if(!querySnapshot.size > 0){ document.querySelector("section").innerHTML = '<div class="empty" style="display: block;"> <img src="logo-high.png"> <span>Your contact list is empty!</span> </div>'; }
     });
   });
 });
