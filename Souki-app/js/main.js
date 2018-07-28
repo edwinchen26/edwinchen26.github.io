@@ -26,7 +26,7 @@ db.collection("contacts").orderBy("first").onSnapshot(function(querySnapshot){
       items.setAttribute("data-name", change.doc.data().first + " " + change.doc.data().last);
       items.setAttribute("data-initial", change.doc.data().first[0]);
       document.querySelector(".cards").appendChild(items);
-      items.innerHTML = items.getAttribute("data-name") + '<div class="details"><div class="button"><span class="_left"><a href="tel:'+change.doc.data().phone+'"><i class="fas fa-phone"></i> Call</a></span> <span class="_right" id="delete-'+change.doc.id+'"><i class="fas fa-trash"></i> Delete</span></div> <div class="map"></div></div>';
+      items.innerHTML = items.getAttribute("data-name") + '<div class="details"><div class="button"><span class="_left"><a href="tel:'+change.doc.data().phone+'"><i class="fas fa-phone"></i> Call</a></span> <span class="_right" id="delete-'+change.doc.id+'"><i class="fas fa-trash"></i> Delete</span></div><div class="map"></div></div>';
       if(querySnapshot.size > 0){ document.querySelector(".empty").style.display = 'none'; }
     }
     if(change.type === "modified"){
