@@ -68,7 +68,13 @@ header{
 .cards .items .details .button span a{ color: inherit; text-decoration: none; }
 .cards .items .details .button span._left{ border: 2px solid #22A7F0; color: #22A7F0; margin-right: 10px; }
 .cards .items .details .button span._right{ border: 2px solid #F03434; color: #F03434; margin-left: 10px; }
-.cards .items .details .map { width: 100%; height: 400px; background: url('../images/map.png') center center no-repeat no-repeat; background-size: cover; border: 4px solid #ffffff; box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, .1); margin-top: 20px; }
+.cards .items .details .map { width: 100%; height: 416px; background: url('../images/map.png'); border: 4px solid #ffffff; box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, .1); margin-top: 20px; }
+.cards .items .details .map._1 { background-position: 0 0; }
+.cards .items .details .map._2 { background-position: 381px 0; }
+.cards .items .details .map._3 { background-position: 761px 0; }
+.cards .items .details .map._4 { background-position: 1141px 0; }
+.cards .items .details .map._5 { background-position: 1521px 0; }
+.cards .items[data-name~=Ernesto] .details .map { background-position: 0 0; }
 
 footer .popup{
   width: 100%;

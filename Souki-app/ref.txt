@@ -1,0 +1,3 @@
+https://medium.com/@applification/progressive-web-app-splash-screens-80340b45d210
+https://developers.google.com/web/fundamentals/web-app-manifest/?hl=es
+https://github.com/gokulkrishh/awesome-meta-and-manifest
