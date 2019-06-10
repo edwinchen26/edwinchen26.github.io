@@ -1,1 +1,176 @@
-const btn=document.getElementById("generate");function genSalario(e,a,t,n,o,i){let l=0,r=0,d=0;return r=n?o.amount:0,n?a==o.month?(r=o.amount/o.day,o.month=0):r=o.amount:r=0,l=i+r,2==e&&(d=l/=2),{year:t,month:a,amount:parseFloat(l),pending:d}}function getDetails(e,a,t,n){let o={},i=[],l=t.reduce((e,a)=>e+a.amount,0),r=t.reduce((e,a)=>e+a.pending,0),d=t.length<=23?n:0,m=parseFloat((6.54*l/100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]);for(let n=e.year;n<=a.year;n++)i.push(t.filter(e=>e.year==n).reduce((e,a)=>e+a.amount,0));let c=parseFloat((i[i.length-1]/11).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]),u=parseFloat((.01923*(0+c+l)).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]),s=parseFloat((((t[t.length-1].amount+t[t.length-1].pending)/3+c+0)/12).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]),g=parseFloat((r+m+d+c+0+s+u).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]),y=parseFloat((.0975*(r+c+m)).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]),h=parseFloat((.0725*s).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]),p=parseFloat((.0125*(r+c+m)).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]);return o={salary:{name:"Salario por año",value:i},pending:{name:"Salario Pendiente",value:r},indemnizacion:{name:"Indemnización",value:m},preaviso:{name:"Preaviso",value:d},vacacionesVencidas:{name:"Vacaciones Vencidas",value:0},vacacionesProporcionales:{name:"Vacaciones Proporcionales",value:c},primaAntiguedad:{name:"Prima de Antigüedad",value:u},decimo:{name:"Décimo Proporcional",value:s},finalSalary:{name:"Salario Bruto",value:g},seguroSocial:{name:"Seguro Social",value:y},seguroSocialDecimo:{name:"Seguro Social Décimo",value:h},seguroEducativo:{name:"Seguro Educativo",value:p},finalTotal:{name:"Total a Pagar",value:parseFloat((g-(y+h+p)).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0])}}}btn.addEventListener("click",()=>{document.getElementById("salaries").innerHTML="",document.getElementById("details").innerHTML="";let e=[];const a=parseFloat(document.getElementById("amount").value),t={day:parseInt(document.getElementById("startDay").value),month:parseInt(document.getElementById("startMonth").value),year:parseInt(document.getElementById("startYear").value)},n={day:parseInt(document.getElementById("finalDay").value),month:parseInt(document.getElementById("finalMonth").value),year:parseInt(document.getElementById("finalYear").value)};let o={day:parseInt(document.getElementById("incidenciaDay").value),month:parseInt(document.getElementById("incidenciaMonth").value),year:parseInt(document.getElementById("incidenciaYear").value)-t.year,amount:parseFloat(document.getElementById("incidenciaAmount").value),isIncidencia:!1},i=n.year-t.year;if(i<1)for(let i=t.month;i<=n.month;i++){o.isIncidencia=i>=o.month;let l=1;i==t.month?l=t.day:i==n.month&&(l=n.day),e.push(genSalario(l,i,t.year,o.isIncidencia,o,a))}else for(let l=0;l<=i;l++)if(0==l)for(let n=t.month;n<=12;n++){l==o.year&&(o.isIncidencia=n>=o.month);let i=1;n==t.month&&(i=t.day),console.log(i),e.push(genSalario(i,n,l+t.year,o.isIncidencia,o,a))}else if(l==i)for(let i=1;i<=n.month;i++){l==o.year&&(o.isIncidencia=i>=o.month);let r=1;i==n.month&&(r=n.day),e.push(genSalario(r,i,l+t.year,o.isIncidencia,o,a))}else for(let n=1;n<=12;n++)l==o.year&&(o.isIncidencia=n>=o.month),e.push(genSalario(1,n,l+t.year,o.isIncidencia,o,a));const l=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];let r=getDetails(t,n,e,a+o.amount);Object.keys(e).forEach(a=>{let t=document.createElement("li"),n=document.createTextNode(`(${e[a].year}) ${l[e[a].month-1]}: $${e[a].amount}`);t.appendChild(n),document.getElementById("salaries").appendChild(t)}),Object.keys(r).forEach(e=>{let a=document.createElement("li"),t=document.createTextNode(`${r[e].name}: ${r[e].value}`);a.appendChild(t),document.getElementById("details").appendChild(a)})});
+const btn = document.getElementById("generate");
+
+btn.addEventListener("click", () => {
+    document.getElementById("salaries").innerHTML = "";
+    document.getElementById("details").innerHTML = "";
+
+    let results = [];
+    const salary = parseFloat(document.getElementById("amount").value);
+
+    const start = {
+        day: parseInt(document.getElementById("startDay").value),
+        month: parseInt(document.getElementById("startMonth").value),
+        year: parseInt(document.getElementById("startYear").value)
+    };
+    const finish = {
+        day: parseInt(document.getElementById("finalDay").value),
+        month: parseInt(document.getElementById("finalMonth").value),
+        year: parseInt(document.getElementById("finalYear").value)
+    };
+    let incidencia = {
+        day: parseInt(document.getElementById("incidenciaDay").value), // 2 = quincena
+        month: parseInt(document.getElementById("incidenciaMonth").value),
+        year: parseInt(document.getElementById("incidenciaYear").value) - start.year,
+        amount: parseFloat(document.getElementById("incidenciaAmount").value),
+        isIncidencia: false
+    };
+
+    // Generar los meses
+    let totalYear = finish.year - start.year;
+    // Mismo año inicio - final
+    if(totalYear < 1){
+        for(let j = start.month; j <= finish.month; j++){
+            incidencia.isIncidencia = j >= incidencia.month ? true : false;
+            let day = 1;
+            if(j == start.month){
+                day = start.day;
+            }else if(j == finish.month){
+                day = finish.day;
+            }
+            results.push(genSalario(day, j, start.year, incidencia.isIncidencia, incidencia, salary));
+        }
+    }else{
+        for(let i = 0; i <= totalYear; i++){
+            // Año de inicio
+            if(i == 0){
+                for(let j = start.month; j <= 12; j++){
+                    if(i == incidencia.year){
+                        incidencia.isIncidencia = j >= incidencia.month ? true : false;
+                    }
+                    let day = 1;
+                    if(j == start.month){
+                        day = start.day;
+                    }
+                    results.push(genSalario(day, j, i + start.year, incidencia.isIncidencia, incidencia, salary));
+                }
+            // Año de final
+            }else if(i == totalYear){
+                for(let j = 1; j <= finish.month; j++){
+                    if(i == incidencia.year){
+                        incidencia.isIncidencia = j >= incidencia.month ? true : false;
+                    }
+                    let day = 1;
+                    if(j == finish.month){
+                        day = finish.day;
+                    }
+                    results.push(genSalario(day, j, i + start.year, incidencia.isIncidencia, incidencia, salary));
+                }
+            // Año(s) entre medio
+            }else{
+                for(let j = 1; j <= 12; j++){
+                    if(i == incidencia.year){
+                        incidencia.isIncidencia = j >= incidencia.month ? true : false;
+                    }
+                    results.push(genSalario(1, j, i + start.year, incidencia.isIncidencia, incidencia, salary));
+                }
+            }
+        }
+    }
+    
+    const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    let details = getDetails(start, finish, results, salary + incidencia.amount);
+    // Display monthly salary
+    Object.keys(results).forEach(item => {
+        let node = document.createElement("li");
+        let textnode = document.createTextNode(`(${results[item].year}) ${months[results[item].month - 1]}: $${results[item].amount}`);
+        node.appendChild(textnode);
+        document.getElementById("salaries").appendChild(node);
+    });
+
+    // Display details
+    Object.keys(details).forEach(item => {
+        let node = document.createElement("li");
+        let textnode = document.createTextNode(`${details[item].name}: ${details[item].value}`);
+        node.appendChild(textnode);
+        document.getElementById("details").appendChild(node);
+    });
+});
+
+function genSalario(day, month, year, isIncidencia, incidencia, salary){
+    let total = 0;
+    let totalIncidencia = 0;
+    let pending = 0;
+
+    totalIncidencia = isIncidencia ? incidencia.amount : 0;
+
+    if(isIncidencia){
+        if(month == incidencia.month){
+            totalIncidencia = incidencia.amount / incidencia.day;
+            incidencia.month = 0;
+        }else{
+            totalIncidencia = incidencia.amount;
+        }
+    }else{
+        totalIncidencia = 0;
+    }
+
+    total = salary + totalIncidencia;
+    if(day == 2){
+        total = total / 2;
+        pending = total;
+    }
+
+    let final = {
+        year: year,
+        month: month,
+        amount: parseFloat(total),
+        pending: pending
+    };
+
+    return final;
+}
+
+function getDetails(start, finish, results, upgrade){
+    let details = {};
+
+    let salary = [];
+    let totalSalary = results.reduce((acc, item) => acc + item.amount, 0);
+    // let pending = results.reduce((acc, item) => acc + item.pending, 0);
+    let pending = (results[results.length - 1].amount + results[results.length - 1].pending) / 2;
+    let preaviso = results.length <= 23 ? upgrade : 0;
+    let indemnizacion = parseFloat(((totalSalary * 6.54) / 100).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]);
+    
+    for(let i = start.year; i <= finish.year; i++){
+        salary.push(results.filter(item => item.year == i).reduce((acc, item) => acc + item.amount, 0));
+    }
+
+    let vacacionesVencidas = 0;
+    let vacacionesProporcionales = parseFloat((salary[salary.length - 1] / 11).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]);
+    let primaAntiguedad = parseFloat(((vacacionesVencidas + vacacionesProporcionales + totalSalary) * 0.01923).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]);
+    let decimo = parseFloat(((((results[results.length - 1].amount + results[results.length - 1].pending) / 3) + vacacionesProporcionales + vacacionesVencidas) / 12).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]);
+    let finalSalary = parseFloat((pending + indemnizacion + preaviso + vacacionesProporcionales + vacacionesVencidas + decimo + primaAntiguedad).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]);
+
+    let seguroSocial = parseFloat(((pending + vacacionesProporcionales + indemnizacion) * 0.0975).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]);
+    let seguroSocialDecimo = parseFloat((decimo * 0.0725).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]);
+    let seguroEducativo = parseFloat(((pending + vacacionesProporcionales + indemnizacion) * 0.0125).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]);
+
+    let finalTotal = parseFloat((finalSalary - (seguroSocial + seguroSocialDecimo + seguroEducativo)).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]);
+
+    details = {
+        salary: {name: 'Salario por año', value: salary},
+        pending: {name: 'Salario Pendiente', value: pending},
+        indemnizacion: {name: 'Indemnización', value: indemnizacion},
+        preaviso: {name: 'Preaviso', value: preaviso},
+        vacacionesVencidas: {name: 'Vacaciones Vencidas', value: vacacionesVencidas},
+        vacacionesProporcionales: {name: 'Vacaciones Proporcionales', value: vacacionesProporcionales},
+        primaAntiguedad: {name: 'Prima de Antigüedad', value: primaAntiguedad},
+        decimo: {name: 'Décimo Proporcional', value: decimo},
+        finalSalary: {name: 'Salario Bruto', value: finalSalary},
+        seguroSocial: {name: 'Seguro Social', value: seguroSocial},
+        seguroSocialDecimo: {name: 'Seguro Social Décimo', value: seguroSocialDecimo},
+        seguroEducativo: {name: 'Seguro Educativo', value: seguroEducativo},
+        finalTotal: {name: 'Total a Pagar', value: finalTotal}
+    }
+
+    return details;
+}
