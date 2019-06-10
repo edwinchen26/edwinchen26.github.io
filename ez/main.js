@@ -144,7 +144,7 @@ function getDetails(start, finish, results, upgrade){
         salary.push(results.filter(item => item.year == i).reduce((acc, item) => acc + item.amount, 0));
     }
 
-    let vacacionesVencidas = 0;
+    let vacacionesVencidas = parseFloat(((results[results.length - 1].amount + results[results.length - 1].pending) / 30) * parseInt(document.getElementById("vacations").value));
     let vacacionesProporcionales = parseFloat((salary[salary.length - 1] / 11).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]);
     let primaAntiguedad = parseFloat(((vacacionesVencidas + vacacionesProporcionales + totalSalary) * 0.01923).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]);
     let decimo = parseFloat(((((results[results.length - 1].amount + results[results.length - 1].pending) / 3) + vacacionesProporcionales + vacacionesVencidas) / 12).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]);
