@@ -1,53 +1,65 @@
 const data = [{
-    text: "Orad sin cesar",
-    result: "1 Tesalonicenses 5:17"
-  },
-  {
     text: "Porque de tal manera amo Dios al mundo que ha dado a su Hijo unigenito para que todo aquel que en el cree no se pierda mas tenga vida eterna",
     result: "Juan 3:16"
   },
   {
-    text: "Jesus le dijo Amaras al Señor tu Dios con todo tu corazon y con toda tu alma y con toda tu mente",
-    result: "Mateo 22:37"
+    text: "Cuales son los colores primarios",
+    result: "Rojo, amarillo, azul"
   },
   {
-    text: "Estas cosas os he hablado para que en mi tengais paz En el mundo tendreis afliccion pero confiad yo he vencido al mundo",
-    result: "Juan 16:33"
+    text: "Cual es el oceano mas extenso y profundo del mundo",
+    result: "Océano Pacífico"
   },
   {
-    text: "Echa sobre Jehova tu carga y el te sustentara No dejara para siempre caido al justo",
-    result: "Salmos 55:22"
+    text: "La montaña mas alta del mundo",
+    result: "Monte Everest"
   },
   {
-    text: "pero los que esperan a Jehova tendran nuevas fuerzas levantaran alas como las aguilas correran y no se cansaran caminaran y no se fatigaran",
-    result: "Isaias 40:31"
+    text: "Las fronteras terrestres de Panama",
+    result: "Colombia y Costa Rica"
   },
   {
-    text: "De modo que si alguno esta en Cristo nueva criatura es las cosas viejas pasaron he aqui todas son hechas nuevas",
-    result: "2 Corintios 5:17"
+    text: "Nombre los colores del arcoiris",
+    result: "Rojo, naranja, amarillo, verde, azul, indigo y violeta"
   },
   {
-    text: "Todo lo puedo en Cristo que me fortalece",
-    result: "Filipenses 4:13"
+    text: "En que animal se convirtio el Emperador Kuzco en la pelicula",
+    result: "Llama"
   },
   {
     text: "Mas buscad primeramente el reino de Dios y su justicia y todas estas cosas os seran añadidas",
     result: "Mateo 6:33"
   },
   {
-    text: "Con todo yo me alegrare en Jehova Y me gozare en el Dios de mi salvacion",
-    result: "Habacuc 3:18"
+    text: "Cuantos metros hay en una milla",
+    result: "1609 metros"
   },
   {
-    text: "Un mandamiento nuevo os doy Que os ameis unos a otros como yo os he amado que tambien os ameis unos a otros",
-    result: "Juan 13:34"
+    text: "Nombre de los planetas en el sistema solar que comienzan con la letra m",
+    result: "Marte y Mercurio"
   },
   {
-    text: "Dios es nuestro amparo y fortaleza Nuestro pronto auxilio en las tribulaciones",
-    result: "Salmos 46:1"
+    text: "Comida favorita de Naruto",
+    result: "Ramen"
+  },
+  {
+    text: "Nombre del vecino de Andy en Toy Story",
+    result: "Sid"
+  },
+  {
+    text: "Quinto planeta del sistema solar",
+    result: "Jupiter"
+  },
+  {
+    text: "Quien pinto la Mona Lisa",
+    result: "Leonardo DaVinci"
+  },
+  {
+    text: "Nombre de la diseñadora de moda en la pelicula Los Increibles",
+    result: "Edna Moda"
   },
 ];
-
+console.log(data.length)
 let selectedPhraseIndex = 0;
 
 function newGame() {
