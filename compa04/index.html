@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compa04 - Escape Room</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="main">
+    <div class="rooms-container">
+      <div class="room" data-room-number="1"></div>
+      <div class="room" data-room-number="2"></div>
+      <div class="room" data-room-number="3"></div>
+      <div class="room" data-room-number="4"></div>
+    </div>
+
+    <div class="dialog-container">
+      <div class="dialog">
+        <span class="heading" data-text="¿Estás realmente seguro de escoger esta puerta?"></span>
+        <div class="actions">
+          <div id="proceed">Sí</div>
+          <div id="close">No</div>
+        </div>
+      </div>
+    </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  function openDialog(option) {
+    $(".dialog-container").fadeIn(400, function () {
+      const emojis = ["🤔", "🔥", "😰", "😥", "💩", "😱", "🥱"];
+      const message = `¿Estás realmente seguro de escoger esta puerta? ${emojis[Math.floor(Math.random()*emojis.length)]}`;
+
+      const url = [
+        "https://docs.google.com/spreadsheets/d/1LSy5doz2qlUdRfNroFkrSfQlRSSPA8aIo7SY4v8Kpyw",
+        "https://docs.google.com/spreadsheets/d/1TxgmvdA8QA3SqrWuispFcyN2IVwDBVNsuHWsgWtA1HQ",
+        "https://docs.google.com/spreadsheets/d/1ukou6lvNMj4xTKz_n0GPAmtIJKW_iX5BhWZCzBLbBuE",
+        "https://docs.google.com/spreadsheets/d/1YZ-apNr5wuE6AZ6__XSrzWHEargvzjVSgQRxFoie7mQ"
+      ];
+
+      $(".dialog-container>.dialog>.heading").attr("data-text", message);
+      $(".dialog-container>.dialog>.actions>#proceed").click(() => window.open(url[option - 1], "_blank"));
+      $(".dialog-container>.dialog>.actions>#close").click(function () {
+        $(".dialog-container").fadeOut(400, function () {
+          $(".dialog-container>.dialog").css({
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)'
+          });
+        });
+      });
+
+      $(".dialog-container>.dialog").mouseover(function () {
+        const position = {
+          x: Math.floor(Math.random() * ($(document).width() - $(this).outerWidth())) + 1,
+          y: Math.floor(Math.random() * ($(document).height() - $(this).outerHeight())) + 1
+        };
+
+        position.x = position.x >= $(document).width() ? position.x - $(this).outerWidth() : position.x;
+        position.y = position.y >= $(document).height() ? position.y - $(this).outerHeight() : position.y;
+
+        $(this).css({
+          top: `${position.y}px`,
+          left: `${position.x}px`,
+          transform: "none"
+        });
+      });
+    });
+  }
+
+  $(".main>.rooms-container>.room").click(function () {
+    const selectedOption = $(this).data("room-number");
+
+    openDialog(selectedOption);
+  });
+</script>
+
+</html>

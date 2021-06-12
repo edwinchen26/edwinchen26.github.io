@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compa04 - Escape Room</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="final">
+    <div class="door" data-door-id="1"></div>
+    <div class="door" data-door-id="2"></div>
+    <div class="door" data-door-id="3"></div>
+    <div class="door" data-door-id="4"></div>
+    <div class="door" data-door-id="5"></div>
+    <div class="door" data-door-id="6"></div>
+    <div class="door" data-door-id="7"></div>
+    <div class="door" data-door-id="8"></div>
+    <div class="door" data-door-id="9"></div>
+    <div class="door" data-door-id="10"></div>
+    <div class="door" data-door-id="11"></div>
+    <div class="door" data-door-id="12"></div>
+    <div class="door" data-door-id="13"></div>
+    <div class="door" data-door-id="14"></div>
+    <div class="door" data-door-id="15"></div>
+    <div class="door" data-door-id="16"></div>
+    <div class="door" data-door-id="17"></div>
+    <div class="door" data-door-id="18"></div>
+    <div class="door" data-door-id="19"></div>
+    <div class="door" data-door-id="20"></div>
+    <div class="door" data-door-id="21"></div>
+    <div class="door" data-door-id="22"></div>
+    <div class="door" data-door-id="23"></div>
+    <div class="door" data-door-id="24"></div>
+    <div class="door" data-door-id="25"></div>
+    <div class="door" data-door-id="26"></div>
+    <div class="door" data-door-id="27"></div>
+    <div class="door" data-door-id="28"></div>
+    <div class="door" data-door-id="29"></div>
+    <div class="door" data-door-id="30"></div>
+    <div class="door" data-door-id="31"></div>
+    <div class="door" data-door-id="32"></div>
+    <div class="door" data-door-id="33"></div>
+    <div class="door" data-door-id="34"></div>
+    <div class="door" data-door-id="35"></div>
+    <div class="door" data-door-id="36"></div>
+  </div>
+
+  <div class="dialog-container" style="z-index: 999">
+    <div class="dialog">
+      <span class="heading" data-text="WINNER"></span>
+      <div class="body">
+        <p>TODOS salgan del breakout room y cada uno me dice su nombre por voz para ganar.</p>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  let attempts = 5;
+  const winnerNumber = Math.floor(Math.random() * 36) + 1;
+
+  function createNope(delay = 0) {
+    setTimeout(() => {
+      const container = document.querySelector(".final");
+      const div = document.createElement("div");
+      div.classList.add("overlay");
+      const nope = document.createElement("img");
+      nope.setAttribute("src", "nope.gif");
+
+      div.appendChild(nope);
+
+      $(div).css({
+        top: `${Math.floor(Math.random() * ($(document).height() - $(div).outerHeight())) + 1}px`,
+        left: `${Math.floor(Math.random() * ($(document).width() - $(div).outerWidth())) + 1}px`,
+        transform: `scale(${1 + (Math.round(Math.random() * 100) / 100)})`
+      });
+
+      container.appendChild(div);
+      setTimeout(() => {
+        $(div).fadeOut(400, function () {
+          $(this).remove();
+        });
+      }, 3000);
+    }, delay);
+  }
+
+  $(".door").click(function () {
+    if ($(this).data("door-id") == winnerNumber) {
+      $(`.door[data-door-id=${winnerNumber}]`).addClass("winner");
+      $(".dialog-container").fadeIn();
+    } else {
+      attempts = attempts - 1;
+      if (attempts > 0) alert(`Te quedan ${attempts} oportunidad${attempts == 1 ? '' : 'es'} o sino tendrás que volver a comenzar de nuevo 👎`);
+      else if (attempts == 0) alert("Mentira, puedes seguir intentando xd")
+
+      createNope();
+      createNope(250);
+    }
+  });
+</script>
+
+</html>
