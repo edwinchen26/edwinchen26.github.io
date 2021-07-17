@@ -172,19 +172,21 @@
     });
 
     if (!completed_rooms.map(x => x.isCompleted).includes(false)) {
-      $($(".door[data-door-id]").get().reverse()).each((i, el) => {
-        setTimeout(() => {
-          $(el).css("opacity", 0);
-        }, 500 + (i * 200));
-      });
-
       setTimeout(() => {
-        $("#rooms").empty();
-        $("#rooms").addClass("clear").append(`<div class="winner">
+        $($(".door[data-door-id]").get().reverse()).each((i, el) => {
+          setTimeout(() => {
+            $(el).css("opacity", 0);
+          }, 500 + (i * 200));
+        });
+
+        setTimeout(() => {
+          $("#rooms").empty();
+          $("#rooms").addClass("clear").append(`<div class="winner">
           <span>¡Felicidades!</span>
           <span>Pueden salir del breakout room</span>
         </div>`);
-      }, 1000 + (completed_rooms.length * 200));
+        }, 1000 + (completed_rooms.length * 200));
+      }, 1000);
     }
   });
 </script>
