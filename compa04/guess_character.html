@@ -95,7 +95,7 @@
 
     verifyTimeout(game);
 
-    const characters = ["Apu", "Baymax", "Bellota", "Burro", "Don Cangrejo", "Donkey Kong", "Gato con botas", "Helga", "Inuyasha", "Jiraiya", "Johnny Bravo", "Max", "Meowth", "Rock Lee", "Shazam"];
+    const characters = ["Apu", "Baymax", "Bellota", "Burro", "Don Cangrejo", "Donkey Kong", "Gato con Botas", "Helga", "Inuyasha", "Jiraiya", "Johnny Bravo", "Max", "Meowth", "Rock Lee", "Shazam"];
     const selected_character = shuffleArray(characters).splice(0, 5);
 
     selected_character.forEach((character, index) => $(`#question0${index + 1}>.heading>img`).attr("src", `assets/images/guess_character/${character}.jpg`));
