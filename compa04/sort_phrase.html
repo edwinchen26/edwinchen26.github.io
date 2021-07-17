@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compa04 - Escape Room</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    ul.ui-sortable {
+      font-size: 1rem;
+      padding: 0;
+    }
+
+    ul.ui-sortable>li {
+      width: 200px;
+      list-style: none;
+      padding: 1rem;
+      background-color: #e5e5e5;
+      border: 1px solid #ccc;
+      margin-bottom: 0.5rem;
+      cursor: move;
+      font-weight: normal;
+    }
+
+    ul.ui-sortable>li.valid {
+      background-color: #b4dab4;
+      border: 1px solid #44c244;
+    }
+
+    ul.ui-sortable>li.invalid {
+      background-color: #ffb2b2;
+      border: 1px solid #ca7575;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="instructions">
+      <div class="heading">Ordena el pasaje bíblico</div>
+      <div class="button" onClick="displayInstructions()">Instrucciones</div>
+      <div class="button gold" onClick="goHome()">Volver</div>
+    </div>
+
+    <div class="questionnaire">
+      <div class="question" id="question01">
+        <div class="status"></div>
+        <div class="heading">
+          <ul id="sortable"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="verify">Verificar respuesta</div>
+  </div>
+
+  <div class="overlay">
+    <div class="close">X</div>
+    <div class="content">
+      <div class="heading">Instrucciones</div>
+      <div class="body">
+        <ul>
+          <li>Ordena el pasaje bíblico</li>
+          <li>El orden es de arriba hacia abajo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="main.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(function () {
+    if (!sessionStorage.getItem("has_entered_room")) window.location = "index.html"; // redirect to home if corrupted settings
+
+    const game = window.location.pathname.split("/compa04/")[1].replace(".html", "");
+    const selected_room = JSON.parse(sessionStorage.getItem("completed_rooms") || "[]").filter(x => x.game == game)[0];
+    if (!selected_room) goHome();
+    if (selected_room.isCompleted) goHome();
+
+    verifyTimeout(game);
+
+    const phrases = [
+      "Porque yo Jehová soy tu Dios, quien te sostiene de tu mano derecha, y te dice: No temas, yo te ayudo.",
+      "Más bien, busquen primeramente el reino de Dios y su justicia, y todas estas cosas les serán añadidas.",
+      "Nosotros le amamos a él, porque él nos amó primero.",
+      "Con todo, yo me alegraré en Jehová, y me gozaré en el Dios de mi salvación.",
+      "Gozosos en la esperanza, sufridos en la tribulación, constantes en la oración",
+      "Jesús le dijo: Amarás al Señor tu Dios con todo tu corazón, y con toda tu alma, y con toda tu mente.",
+      "Y todo lo que pidiereis en oración, creyendo, lo recibiréis."
+    ];
+
+    const createSortable = (phrase) => {
+      shuffleArray(phrase.split(" ")).forEach(word => $("#sortable").append($(`<li data-text-value="${word}">${word}</li>`)));
+      $("#sortable").sortable({
+        start: () => $("#sortable>li").removeClass("valid invalid")
+      });
+    };
+    const selected_phrase = Math.floor(Math.random() * phrases.length);
+    createSortable(phrases[selected_phrase]);
+
+    $(".verify").click(function () {
+      if (!$(this).hasClass("blocked")) {
+        const list = $("#sortable>li");
+        const isError = phrases[selected_phrase].split(" ").map((word, index) => {
+          const isEqual = $(list[index]).data("text-value") == word;
+          $(list[index]).removeClass("valid invalid").addClass(isEqual ? "valid" : "invalid");
+
+          return !isEqual;
+        });
+
+        if (isError.includes(true)) {
+          setRoomTimeout({
+            timeout: 1 * 60 * 1000,
+            game: game
+          });
+
+          verifyTimeout(game);
+        } else {
+          markRoomAsCompleted(game);
+        }
+      }
+    });
+  });
+</script>
+
+</html>

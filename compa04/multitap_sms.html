@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compa04 - Escape Room</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="instructions">
+      <div class="heading">Celulares viejitos</div>
+      <div class="button" onClick="displayInstructions()">Instrucciones</div>
+      <div class="button gold" onClick="goHome()">Volver</div>
+    </div>
+
+    <div class="questionnaire">
+      <div class="question" id="hint">
+        <div class="heading"><img src="assets/images/multitap_sms/guide.png" style="display: block"></div>
+      </div>
+
+      <div class="question" id="question01">
+        <div class="status"></div>
+        <div class="heading"></div>
+        <div class="answer">
+          <input type="text">
+        </div>
+      </div>
+
+      <div class="question" id="question02">
+        <div class="status"></div>
+        <div class="heading"></div>
+        <div class="answer">
+          <input type="text">
+        </div>
+      </div>
+
+      <div class="question" id="question03">
+        <div class="status"></div>
+        <div class="heading"></div>
+        <div class="answer">
+          <input type="text">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="verify">Verificar respuesta</div>
+  </div>
+
+  <div class="overlay">
+    <div class="close">X</div>
+    <div class="content">
+      <div class="heading">Instrucciones</div>
+      <div class="body">
+        <ul>
+          <li>Convierte los números a la palabra o frase respectivamente</li>
+          <li>No utilizar tildes</li>
+          <li>Los guiones son espacios</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="main.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(function () {
+    if (!sessionStorage.getItem("has_entered_room")) window.location = "index.html"; // redirect to home if corrupted settings
+
+    const game = window.location.pathname.split("/compa04/")[1].replace(".html", "");
+    const selected_room = JSON.parse(sessionStorage.getItem("completed_rooms") || "[]").filter(x => x.game == game)[0];
+    if (!selected_room) goHome();
+    if (selected_room.isCompleted) goHome();
+
+    verifyTimeout(game);
+
+    const multiTapConverter = function (string) {
+      const arr = string.toLowerCase().split("");
+      const dictionary = [{
+          code: 2,
+          letters: ["a", "b", "c"]
+        },
+        {
+          code: 3,
+          letters: ["d", "e", "f"]
+        },
+        {
+          code: 4,
+          letters: ["g", "h", "i"]
+        },
+        {
+          code: 5,
+          letters: ["j", "k", "l"]
+        },
+        {
+          code: 6,
+          letters: ["m", "n", "o"]
+        },
+        {
+          code: 7,
+          letters: ["p", "q", "r", "s"]
+        },
+        {
+          code: 8,
+          letters: ["t", "u", "v"]
+        },
+        {
+          code: 9,
+          letters: ["w", "x", "y", "z"]
+        },
+      ];
+
+      return arr.map(function (letter) {
+        if (letter == " ") return "—";
+
+        const item = dictionary[dictionary.findIndex(x => x.letters.includes(letter))];
+        const repeatTimes = item.letters.indexOf(letter) + 1;
+
+        return item.code.toString().repeat(repeatTimes)
+      }).join(" ");
+    };
+
+    const answers = ["Edwin", "Dios es amor", "Escape room", "Esta dificil", "Amar al projimo", "El amor no tiene envidia", "El amor no guarda rencor", "El amor todo lo sufre", "Hoy es sabado", "Esta mal escrito", "El numero cinco", "La Biblia"];
+    const selected_options = shuffleArray(answers).splice(0, 3);
+
+    selected_options.forEach((opt, index) => $(`#question0${index + 1}>.heading`).append(`<span>${multiTapConverter(opt)}</span>`))
+
+    $(".verify").click(function () {
+      if (!$(this).hasClass("blocked")) {
+        const isError = [];
+
+        $(".question>.answer>input[type=text]").each((index, el) => {
+          const isEqual = multiTapConverter($(el).val()) == multiTapConverter(selected_options[index]);
+          isError.push(!isEqual);
+          $(`#question0${index + 1}`).attr("class", "question").addClass(isEqual ? "valid" : "invalid");
+        });
+
+        if (isError.includes(true)) {
+          setRoomTimeout({
+            timeout: 1 * 60 * 1000,
+            game: game
+          });
+
+          verifyTimeout(game);
+        } else {
+          markRoomAsCompleted(game);
+        }
+      }
+    });
+  });
+</script>
+
+</html>

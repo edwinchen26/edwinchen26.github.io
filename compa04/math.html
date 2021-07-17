@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compa04 - Escape Room</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="instructions">
+      <div class="heading">Easy math</div>
+      <div class="button" onClick="displayInstructions()">Instrucciones</div>
+      <div class="button gold" onClick="goHome()">Volver</div>
+    </div>
+
+    <div class="questionnaire">
+      <div class="question" id="question01">
+        <div class="status"></div>
+        <div class="heading"><img src="assets/images/math/math01.png" alt=""></div>
+        <div class="answer">
+          <input type="number">
+        </div>
+      </div>
+
+      <div class="question" id="question02">
+        <div class="status"></div>
+        <div class="heading"><img src="assets/images/math/math02.png" alt=""></div>
+        <div class="answer">
+          <input type="number">
+        </div>
+      </div>
+
+      <div class="question" id="question03">
+        <div class="status"></div>
+        <div class="heading"><img src="assets/images/math/math03.png" alt=""></div>
+        <div class="answer">
+          <input type="number">
+        </div>
+      </div>
+
+      <div class="question" id="question04">
+        <div class="status"></div>
+        <div class="heading"><img src="assets/images/math/math04.png" alt=""></div>
+        <div class="answer">
+          <input type="number">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="verify">Verificar respuesta</div>
+  </div>
+
+  <div class="overlay">
+    <div class="close">X</div>
+    <div class="content">
+      <div class="heading">Instrucciones</div>
+      <div class="body">
+        <ul>
+          <li>Resuelve correctamente estas operaciones aritméticas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="main.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(function () {
+    if (!sessionStorage.getItem("has_entered_room")) window.location = "index.html"; // redirect to home if corrupted settings
+
+    const game = window.location.pathname.split("/compa04/")[1].replace(".html", "");
+    const selected_room = JSON.parse(sessionStorage.getItem("completed_rooms") || "[]").filter(x => x.game == game)[0];
+    if (!selected_room) goHome();
+    if (selected_room.isCompleted) goHome();
+
+    verifyTimeout(game);
+
+    const answers = [3364, 26, 1, 45];
+
+    $(".verify").click(function () {
+      if (!$(this).hasClass("blocked")) {
+        const isError = [];
+
+        $(".question>.answer>input[type=number]").each((index, el) => {
+          const isEqual = $(el).val() == answers[index];
+
+          isError.push(!isEqual);
+          $(`#question0${index + 1}`).attr("class", "question").addClass(isEqual ? "valid" : "invalid");
+        });
+
+        if (isError.includes(true)) {
+          setRoomTimeout({
+            timeout: 1 * 60 * 1000,
+            game: game
+          });
+
+          verifyTimeout(game);
+        } else {
+          markRoomAsCompleted(game);
+        }
+      }
+    });
+  });
+</script>
+
+</html>

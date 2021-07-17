@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compa04 - Escape Room</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="instructions">
+      <div class="heading">Random quiz</div>
+      <div class="button" onClick="displayInstructions()">Instrucciones</div>
+      <div class="button gold" onClick="goHome()">Volver</div>
+    </div>
+
+    <div class="questionnaire">
+      <div class="question" id="question01">
+        <div class="status"></div>
+        <div class="heading">Siglas de la Iglesia</div>
+        <div class="answer">
+          <input type="text">
+        </div>
+      </div>
+
+      <div class="question" id="question02">
+        <div class="status"></div>
+        <div class="heading">¿Cuál es la cuenta de instagram del compañerismo?</div>
+        <div class="answer">
+          <input type="text">
+        </div>
+      </div>
+
+      <div class="question" id="question03">
+        <div class="status"></div>
+        <div class="heading">¿Cuántos admin hay en el grupo de whatsapp del compañerismo?</div>
+        <div class="answer">
+          <input type="text">
+        </div>
+      </div>
+
+      <div class="question" id="question04">
+        <div class="status"></div>
+        <div class="heading">¿Cuántos post tiene la cuenta de Instagram del compañerismo?</div>
+        <div class="answer">
+          <input type="text">
+        </div>
+      </div>
+
+      <div class="question" id="question05">
+        <div class="status"></div>
+        <div class="heading">¿Cuántos stories tiene el highlight JUEGOS en la cuenta de instagram del compa?</div>
+        <div class="answer">
+          <input type="text">
+        </div>
+      </div>
+
+      <div class="question" id="question06">
+        <div class="status"></div>
+        <div class="heading">¿Cuántos videos del Culto Hispano hay en total en el canal de Youtube?</div>
+        <div class="answer">
+          <input type="text">
+        </div>
+      </div>
+
+      <div class="question" id="question07">
+        <div class="status"></div>
+        <div class="heading">Nombre de la 3ra alabanza del culto hispano más reciente</div>
+        <div class="answer">
+          <input type="text">
+        </div>
+      </div>
+
+      <div class="question" id="question08">
+        <div class="status"></div>
+        <div class="heading">¿Cuántos stories tiene el highlight TALLERES en la cuenta de instagram del compa?</div>
+        <div class="answer">
+          <input type="text">
+        </div>
+      </div>
+
+      <div class="question" id="question09">
+        <div class="status"></div>
+        <div class="heading">Nombre de la persona que presentó el taller acerca de los 5 Lenguajes del amor el año pasado</div>
+        <div class="answer">
+          <input type="text">
+        </div>
+      </div>
+
+      <div class="question" id="question010">
+        <div class="status"></div>
+        <div class="heading">Zoom ID del compañerismo (sin espacios)</div>
+        <div class="answer">
+          <input type="text">
+        </div>
+      </div>
+
+      <div class="question" id="question011">
+        <div class="status"></div>
+        <div class="heading">¿Cuánto tiempo (completo) le tomó a Angel Lee reventar el globo?</div>
+        <div class="answer">
+          <input type="text">
+        </div>
+      </div>
+
+      <div class="question" id="question012">
+        <div class="status"></div>
+        <div class="heading">Nombre del tema de la predicación del culto hispano más reciente</div>
+        <div class="answer">
+          <input type="text">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="verify">Verificar respuesta</div>
+  </div>
+
+  <div class="overlay">
+    <div class="close">X</div>
+    <div class="content">
+      <div class="heading">Instrucciones</div>
+      <div class="body">
+        <ul>
+          <li>Contesta la pregunta correctamente</li>
+          <li>Todas las preguntas son acerca del compañerismo de José y nuestra Iglesia</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="main.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(function () {
+    if (!sessionStorage.getItem("has_entered_room")) window.location = "index.html"; // redirect to home if corrupted settings
+
+    const game = window.location.pathname.split("/compa04/")[1].replace(".html", "");
+    const selected_room = JSON.parse(sessionStorage.getItem("completed_rooms") || "[]").filter(x => x.game == game)[0];
+    if (!selected_room) goHome();
+    if (selected_room.isCompleted) goHome();
+
+    verifyTimeout(game);
+
+    const answers = ["IECHPA", "compa_de_jose", "10", "25", "20", "8", "Yo quiero conocerte", "30", "Karina", "96494924649", "21:40.03", "Buenas Bases Para Un Buen Crecimiento"];
+
+    $(".verify").click(function () {
+      if (!$(this).hasClass("blocked")) {
+        const isError = [];
+
+        $(".question>.answer>input[type=text]").each((index, el) => {
+          const isEqual = $(el).val().toUpperCase() == answers[index].toUpperCase();
+          isError.push(!isEqual);
+          $(`#question0${index + 1}`).attr("class", "question").addClass(isEqual ? "valid" : "invalid");
+        });
+
+        if (isError.includes(true)) {
+          setRoomTimeout({
+            timeout: 1 * 60 * 1000,
+            game: game
+          });
+
+          verifyTimeout(game);
+        } else {
+          markRoomAsCompleted(game);
+        }
+      }
+    });
+  });
+</script>
+
+</html>

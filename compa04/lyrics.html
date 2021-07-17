@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compa04 - Escape Room</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    textarea {
+      width: 50%;
+      height: 120px;
+      display: block;
+      resize: none;
+      padding: 0.5rem;
+    }
+
+    audio {
+      display: block;
+    }
+
+    .heading>a {
+      font-size: 0.85rem;
+      font-weight: normal;
+      font-style: italic;
+      color: #999;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="instructions">
+      <div class="heading">Escribe la letra de la canción</div>
+      <div class="button" onClick="displayInstructions()">Instrucciones</div>
+      <div class="button gold" onClick="goHome()">Volver</div>
+    </div>
+
+    <div class="questionnaire">
+      <div class="question" id="question01">
+        <div class="status"></div>
+        <div class="heading">
+          <audio id="audio01" type="audio/mpeg" controls></audio>
+          <a id="audio01_new-tab" target="_blank" rel="noopener noreferrer">Click aquí si el audio no funciona</a>
+        </div>
+        <div class="answer">
+          <textarea></textarea>
+        </div>
+      </div>
+      <div class="question" id="question02">
+        <div class="status"></div>
+        <div class="heading">
+          <audio id="audio02" type="audio/mpeg" controls></audio>
+          <a id="audio02_new-tab" target="_blank" rel="noopener noreferrer">Click aquí si el audio no funciona</a>
+        </div>
+        <div class="answer">
+          <textarea></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="verify">Verificar respuesta</div>
+  </div>
+
+  <div class="overlay">
+    <div class="close">X</div>
+    <div class="content">
+      <div class="heading">Instrucciones</div>
+      <div class="body">
+        <ul>
+          <li><b>Escribe</b> la letra de la canción según el audio</li>
+          <li>No utilizar tildes, coma ni punto final</li>
+          <li>No poner salto de línea (ENTER)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="main.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(function () {
+    if (!sessionStorage.getItem("has_entered_room")) window.location = "index.html"; // redirect to home if corrupted settings
+
+    const game = window.location.pathname.split("/compa04/")[1].replace(".html", "");
+    const selected_room = JSON.parse(sessionStorage.getItem("completed_rooms") || "[]").filter(x => x.game == game)[0];
+    if (!selected_room) goHome();
+    if (selected_room.isCompleted) goHome();
+
+    verifyTimeout(game);
+
+    $("textarea").bind("cut copy paste", (e) => e.preventDefault());
+
+    const audio = [{
+        id: 1,
+        text: "Mi corazon anhela estar contigo Dios Eres el agua que quita mi sed Eres el fuego que enciende mi ser eres la roca donde puedo descansar mis pies Mi refugio en la tempestad mi anhelo es contigo estar Eres mi Padre me rescataste de la oscuridad Es eterno tu amor Es eterno tu amor Y nunca se va acabar"
+      },
+      {
+        id: 2,
+        text: "Tu has borrado todo el pecado en mi Yo estaba roto pero me amaste asi tu gracia me alcanzo mi pecado borro"
+      },
+      {
+        id: 3,
+        text: "Creado para conocerte a ti Amor sin condicion eres para mi Aqui estoy te necesito me rindo a ti Tuyo soy mi alma te adora hasta el fin"
+      },
+      {
+        id: 4,
+        text: "Solo en ti confiare todo va a estar bien Mi mundo cambio por tu gloria Aun en mis peleas levanto mi cabeza no me dejaras Aun en la batalla tuya es la victoria se que de mi lado no te alejaras"
+      }
+    ];
+    const selected_audio = shuffleArray(audio).splice(0, 2);
+
+    $("#audio01").attr("src", `assets/audio/lyrics/audio0${selected_audio[0].id}.mp3`);
+    $("#audio02").attr("src", `assets/audio/lyrics/audio0${selected_audio[1].id}.mp3`);
+    $("#audio01_new-tab").attr("href", `assets/audio/lyrics/audio0${selected_audio[0].id}.mp3`);
+    $("#audio02_new-tab").attr("href", `assets/audio/lyrics/audio0${selected_audio[1].id}.mp3`);
+
+    $(".verify").click(function () {
+      if (!$(this).hasClass("blocked")) {
+        const isError = [false, false];
+
+        $(".answer>textarea").each((index, el) => {
+          const isEqual = $(el).val().trim().toUpperCase() == selected_audio[index].text.trim().toUpperCase();
+          isError[index] = !isEqual;
+          $(`#question0${index + 1}`).attr("class", "question").addClass(isEqual ? "valid" : "invalid");
+        });
+
+        if (isError.includes(true)) {
+          setRoomTimeout({
+            timeout: 2 * 60 * 1000,
+            game: game
+          });
+
+          verifyTimeout(game);
+        } else {
+          markRoomAsCompleted(game);
+        }
+      }
+    });
+  });
+</script>
+
+</html>

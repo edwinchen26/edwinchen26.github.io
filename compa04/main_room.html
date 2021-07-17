@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compa04 - Escape Room</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .rooms {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 1rem;
+    }
+
+    .rooms.clear {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .rooms.clear>.winner {
+      font-size: 3rem;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      transform-origin: center center;
+      animation: winner 0.2s ease-in-out infinite alternate;
+    }
+
+    .rooms.clear>.winner>span:first-child {
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .rooms>.door {
+      background-color: rgba(0, 0, 0, .8);
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      opacity: 0.25;
+      transition: 0.3s linear;
+    }
+
+    .rooms>.door:before {
+      content: "🔒";
+      font-size: 3rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .rooms>.door:hover {
+      opacity: 1;
+      transition: 0.3s linear;
+    }
+
+    .rooms>.door.completed {
+      background-color: #ffac4f;
+      opacity: 0.75;
+      cursor: default;
+    }
+
+    .rooms>.door.completed:before {
+      content: "✔️";
+    }
+
+    li {
+      margin: 0.25rem 0;
+    }
+
+    .button {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: white;
+      border-radius: 8px;
+      padding: 0.25rem 0.5rem;
+      background-color: #ff7f50;
+    }
+
+    @keyframes winner {
+      from {
+        transform: rotate(-1deg)
+      }
+
+      to {
+        transform: rotate(1deg)
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="instructions">
+      <div class="heading">Resuelve todos los acertijos</div>
+      <div class="button" onClick="displayInstructions()">Instrucciones</div>
+    </div>
+    <div id="rooms" class="rooms">
+    </div>
+  </div>
+
+  <div class="overlay">
+    <div class="close">X</div>
+    <div class="content">
+      <div class="heading">Instrucciones</div>
+      <div class="body">
+        <ul>
+          <li>Recuerda leer las instrucciones de cada juego</li>
+          <li>No te equivoques, habrá penalización de tiempo</li>
+          <li>El juego es en equipo, ayúdense entre ustedes (o con Google)</li>
+          <li>Puedes utilizar el botón <span class="button">Volver</span> para continuar con otros acertijos mientras esperan la penalización de tiempo</li>
+          <li>El primer grupo en completar todos los acertijos gana</li>
+        </ul>
+        <span class="hidden">Felicidades</span>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="main.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(function () {
+    if (!sessionStorage.getItem("has_entered_room")) window.location = "index.html"; // redirect to home if corrupted settings
+
+    if (!sessionStorage.getItem("completed_rooms")) {
+      const rooms = [
+        "sequence",
+        "lyrics",
+        "guess_password",
+        "countries",
+        "sort_phrase",
+        "memory_test",
+        "quiz",
+        "quiz2",
+        "siblings_or_dating",
+        "multitap_sms",
+        "easy_quiz",
+        "math",
+        "guess_character",
+        "guess_language",
+        "dice_game",
+        "rock_paper_scissors",
+        "kinda_blackjack",
+        "geometry",
+        "guess_country",
+        "free_zone",
+      ];
+      const shuffled_rooms = shuffleArray(rooms).splice(0, 16);
+
+      const formatted_rooms = shuffled_rooms.map(function (game, index) {
+        return {
+          id: index + 1,
+          game: game,
+          isCompleted: false,
+          timeout: null
+        }
+      });
+
+      sessionStorage.setItem("completed_rooms", JSON.stringify(formatted_rooms));
+    }
+
+    const completed_rooms = JSON.parse(sessionStorage.getItem("completed_rooms"));
+    completed_rooms.forEach((room, index) => {
+      $("#rooms").append(`<div class="door" data-door-id="${index + 1}"></div>`);
+      const el = $(`.door[data-door-id=${room.id}]`);
+      if (room.isCompleted) el.addClass("completed");
+      el.click(() => !$(el).hasClass("completed") ? window.location = `${room.game}.html` : null);
+    });
+
+    if (!completed_rooms.map(x => x.isCompleted).includes(false)) {
+      $($(".door[data-door-id]").get().reverse()).each((i, el) => {
+        setTimeout(() => {
+          $(el).css("opacity", 0);
+        }, 500 + (i * 200));
+      });
+
+      setTimeout(() => {
+        $("#rooms").empty();
+        $("#rooms").addClass("clear").append(`<div class="winner">
+          <span>¡Felicidades!</span>
+          <span>Pueden salir del breakout room</span>
+        </div>`);
+      }, 1000 + (completed_rooms.length * 200));
+    }
+  });
+</script>
+
+</html>

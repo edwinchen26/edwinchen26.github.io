@@ -10,145 +10,170 @@ body {
   box-sizing: border-box;
 }
 
-.main {
+.container {
   width: 100%;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-.rooms-container {
-  width: 100%;
-  padding: 1rem;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-evenly;
-}
-
-.rooms-container>.room {
-  width: 250px;
-  background-color: #1abc9c;
-  height: 400px;
-  border: 6px solid #ffffff;
-  box-shadow: 0 0 5px rgba(0, 0, 0, .2);
-  border-radius: 7px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: 0.3s linear;
-  cursor: pointer;
-}
-
-.rooms-container>.room:before {
-  content: attr(data-room-number);
-  font-size: 5rem;
-  font-weight: 600;
-  color: white;
-  text-shadow: 2px 2px 1px rgba(0, 0, 0, .25);
-}
-
-.rooms-container>.room:hover {
-  transform: translateY(-10px);
-  transition: 0.3s linear;
-}
-
-.dialog-container {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, .8);
-  top: 0;
-  left: 0;
-  display: none;
-}
-
-.dialog-container>.dialog {
-  position: absolute;
-  z-index: 10;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #7f8c8d;
-  color: #383e3f;
-  padding: 2rem;
-  border: 2px solid #ffffff;
-  border-radius: 7px;
+  max-height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
-  grid-row-gap: 2rem;
-  font-size: 1.5rem;
-  transition: 0.75s ease-in-out;
+  grid-template-rows: auto 1fr auto;
+  grid-gap: 1rem;
+  padding: 1rem;
 }
 
-.dialog-container>.dialog>.heading {
-  font-weight: 600;
-}
-
-.dialog-container>.dialog>.heading:before {
-  content: attr(data-text);
-}
-
-.dialog-container>.dialog>.actions>div {
-  display: inline-block;
-  background-color: rgba(0, 0, 0, .3);
-  padding: 0.5rem 2rem;
-  border-radius: 5px;
-  color: #ffffff;
-  cursor: pointer;
-}
-
-.final {
-  width: 100%;
-  height: 100vh;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-auto-rows: calc(100% / 6);
-  border: 2px solid #2c3e50;
-  position: relative;
-  overflow: hidden;
-}
-
-.final>.door {
-  height: 100%;
-  background-color: rgba(0, 0, 0, .8);
-  border: 2px solid #2c3e50;
-  border-radius: 5px;
+.instructions {
   display: flex;
-  justify-content: center;
+  flex-flow: row nowrap;
   align-items: center;
-  cursor: pointer;
-  opacity: 0.25;
-  transition: 0.3s linear;
 }
 
-.final>.door:before {
-  content: attr(data-door-id);
-  font-size: 3rem;
+.instructions>.heading {
+  font-size: 2rem;
   font-weight: 600;
-  color: #ffffff;
+  color: white;
 }
 
-.final>.door:hover {
-  opacity: 1;
-  transition: 0.3s linear;
+.instructions>.button {
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  margin-left: 1rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  border-radius: 8px;
+  background-color: #079992;
+  cursor: pointer;
 }
 
-.final>.door.winner {
-  background-color: #ffbe76;
-  opacity: 1;
+.instructions>.button.gold {
+  background-color: #ff7f50;
+}
+
+.instructions>.button.dark {
+  color: white;
+  background-color: #333333;
+  border: 2px solid white;
 }
 
 .overlay {
   position: absolute;
-  z-index: 99;
-  background-color: #000000;
-  border-radius: 5px;
-  overflow: hidden;
-  transition: 0.3s linear;
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: #dddddd;
+  z-index: 9999;
 }
 
-.overlay>img {
+.overlay>.close {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  font-size: 3rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.overlay>.content {
+  min-width: 600px;
+  max-width: 1024px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+}
+
+.overlay>.content>.heading {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.questionnaire {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding-right: 1rem;
+}
+
+.questionnaire>.question {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem;
+  background-color: #ffffff;
+  border: 5px solid #ffffff;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  position: relative;
+}
+
+.questionnaire>.question.valid {
+  border: 5px solid green;
+}
+
+.questionnaire>.question.invalid {
+  border: 5px solid red;
+}
+
+.questionnaire>.question>.status {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 2rem;
+}
+
+.questionnaire>.question.valid>.status:before {
+  content: "✅"
+}
+
+.questionnaire>.question.invalid>.status:before {
+  content: "❌"
+}
+
+.questionnaire>.question>.heading {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.questionnaire>.question>.answer {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #404040;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #b4b4b4;
+}
+
+.questionnaire>.question>.answer:before {
+  content: "Respuesta: "
+}
+
+.questionnaire>.question>.answer input,
+.questionnaire>.question>.answer textarea {
+  outline: 0;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.verify {
+  width: 100%;
+  background-color: #079992;
+  border: 3px solid white;
+  border-radius: 8px;
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+}
+
+.verify.blocked {
   opacity: 0.75;
+  background-color: #252525;
+  cursor: not-allowed;
 }

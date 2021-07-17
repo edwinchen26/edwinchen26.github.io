@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compa04 - Escape Room</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .question {
+      height: 100%;
+    }
+
+    .game {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .game>.result {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-grow: 1;
+    }
+
+    .game>.result>div {
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .game>.result>div>.cards {
+      display: flex;
+      flex-flow: row nowrap;
+    }
+
+    .game>.result>div>h2 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .game>.result>div>.cards>img {
+      width: 113px;
+      margin-right: 2px;
+    }
+
+    .game>.result>div>.score {
+      margin-top: 0.5rem;
+    }
+
+    .game>.result>div>.score:before {
+      content: "Puntaje: ";
+      font-weight: 600;
+    }
+
+    .game>.options {
+      display: flex;
+      grid-gap: 1rem;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .game>.options>input[type=radio] {
+      display: none;
+    }
+
+    .game>.options>input[type=radio]+label {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border: 2px solid #ccc;
+      color: #777;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .game>.options>input[type=radio]:checked+label {
+      border: 2px solid #619dd8;
+      color: white;
+      background-color: #61a0ff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="instructions">
+      <div class="heading">21 - esto no es blackjack</div>
+      <div class="button" onClick="displayInstructions()">Instrucciones</div>
+      <div class="button gold" onClick="goHome()">Volver</div>
+    </div>
+
+    <div class="questionnaire">
+      <div class="question">
+        <div class="status"></div>
+        <div class="game">
+          <div class="result">
+            <div class="cpu">
+              <h2>CPU</h2>
+              <div class="cards"></div>
+              <div class="score">?</div>
+            </div>
+            <div class="me">
+              <h2>YO</h2>
+              <div class="cards"></div>
+              <div class="score"></div>
+            </div>
+          </div>
+          <div class="options">
+            <input type="radio" value="hit" id="hit" name="option">
+            <label for="hit">Hit</label>
+            <input type="radio" value="stand" id="stand" name="option">
+            <label for="stand">Stand</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="verify">Jugar</div>
+  </div>
+
+  <div class="overlay">
+    <div class="close">X</div>
+    <div class="content">
+      <div class="heading">Instrucciones</div>
+      <div class="body">
+        <ul>
+          <li>Se suman los valores de las cartas para tratar de alcanzar el valor 21</li>
+          <li>La carta con valor "A" puede ser equivalente a 1 u 11</li>
+          <li>Gana el que está más cerca del valor 21, sin pasarse</li>
+          <li>En caso de empate, CPU gana</li>
+          <li>HIT: Pedir una carta más</li>
+          <li>STAND: Terminar el turno sin pedir ninguna carta</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="main.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(function () {
+    if (!sessionStorage.getItem("has_entered_room")) window.location = "index.html"; // redirect to home if corrupted settings
+
+    const game = window.location.pathname.split("/compa04/")[1].replace(".html", "");
+    const selected_room = JSON.parse(sessionStorage.getItem("completed_rooms") || "[]").filter(x => x.game == game)[0];
+    if (!selected_room) goHome();
+    if (selected_room.isCompleted) goHome();
+
+    verifyTimeout(game);
+
+    let attempts = 1;
+    const cards = {
+      value: ["A", "2", "3", "4", "5", "6", "7", "8", "9", "0", "J", "Q", "K"],
+      suits: ["C", "D", "H", "S"]
+    };
+    const getRandomCard = () => cards.value[Math.floor(Math.random() * cards.value.length)] + cards.suits[Math.floor(Math.random() * cards.suits.length)];
+    const getCardsValue = (array) => {
+      let sum = 0;
+      array.forEach(value => {
+        const x = value[0];
+        let val = x;
+
+        if (x == "0" || x == "J" || x == "Q" || x == "K")
+          val = 10;
+        if (x == "A")
+          val = 1;
+
+        sum = sum + parseInt(val);
+      });
+
+      return sum;
+    };
+    const renderCards = (user) => {
+      $(".me>.cards").empty();
+      $(".me>.score").text(user_cards.map(x => x[0]).includes("A") ? `${user_cards_score}, ${user_cards_score + 10}` : user_cards_score);
+      user_cards.forEach(card => $(".me>.cards").append(`<img src="assets/images/kinda_blackjack/${card}.png">`));
+
+      $(".cpu>.cards").empty();
+      if (!cpu_cards.includes("hidden")) $(".cpu>.score").text(cpu_cards.map(x => x[0]).includes("A") ? `${cpu_cards_score}, ${cpu_cards_score + 10}` : cpu_cards_score);
+      cpu_cards.forEach(card => $(".cpu>.cards").append(`<img src="assets/images/kinda_blackjack/${card}.png">`));
+    };
+
+    const cpu_cards = [getRandomCard(), "hidden"];
+    const user_cards = [getRandomCard(), getRandomCard()];
+
+    let user_cards_score = getCardsValue(user_cards);
+    let cpu_cards_score;
+
+    renderCards();
+
+    $(".verify").click(function () {
+      if (!$(this).hasClass("blocked")) {
+        if ($("input[type=radio][name=option]:checked").length == 0) return alert("Selecciona una opción");
+
+        const action = $("input[type=radio][name=option]:checked").val();
+
+        if (action == "hit") {
+          const forceCheck = () => {
+            $("input[type=radio][name=option][id=stand]").prop("checked", true);
+            $(".verify").click();
+          };
+
+          user_cards.push(getRandomCard());
+          user_cards_score = getCardsValue(user_cards);
+
+          renderCards();
+
+          if (user_cards_score > 21 && user_cards_score + 10 > 21) forceCheck();
+          if (user_cards.length == 5) forceCheck();
+        }
+
+        if (action == "stand") {
+          cpu_cards.pop();
+          cpu_cards.push(getRandomCard());
+          cpu_cards_score = getCardsValue(cpu_cards);
+
+          while (cpu_cards_score <= user_cards_score && cpu_cards_score + 10 <= user_cards_score + 10 && cpu_cards.length < 5) {
+            cpu_cards.push(getRandomCard());
+            cpu_cards_score = getCardsValue(cpu_cards);
+          }
+
+          renderCards();
+
+          const winner = (user_cards_score < 21 && cpu_cards_score > 21 || cpu_cards_score < user_cards_score) ||
+            (user_cards_score == 21 || user_cards_score + 10 == 21);
+
+          if (!winner) {
+            setRoomTimeout({
+              timeout: 0.25 * 60 * 1000,
+              game: game
+            });
+
+            verifyTimeout(game, true);
+          } else {
+            setTimeout(() => markRoomAsCompleted(game), 1000);
+          }
+        }
+
+        $("input[type=radio][name=option]").prop("checked", false);
+      }
+    });
+  });
+</script>
+
+</html>

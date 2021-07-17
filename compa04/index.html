@@ -7,6 +7,192 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Compa04 - Escape Room</title>
   <link rel="stylesheet" href="style.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/rangeslider.js@2.3.3/dist/rangeslider.css"> -->
+  <style>
+    .main {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .rooms-container {
+      width: 100%;
+      height: 100vh;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      justify-items: center;
+      grid-gap: 2rem;
+    }
+
+    .rooms-container>.room {
+      width: 250px;
+      background-color: #1abc9c;
+      border: 6px solid #ffffff;
+      box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+      border-radius: 7px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.3s linear;
+      cursor: pointer;
+    }
+
+    .rooms-container>.room:before {
+      content: attr(data-room-number);
+      font-size: 5rem;
+      font-weight: 600;
+      color: white;
+      text-shadow: 2px 2px 1px rgba(0, 0, 0, .25);
+    }
+
+    .rooms-container>.room:hover {
+      transform: translateY(-10px);
+      transition: 0.3s linear;
+    }
+
+    .dialog-container {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, .8);
+      top: 0;
+      left: 0;
+      display: none;
+    }
+
+    .dialog-container>.dialog {
+      position: absolute;
+      z-index: 10;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #7f8c8d;
+      color: #383e3f;
+      padding: 2rem;
+      border: 2px solid #ffffff;
+      border-radius: 7px;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-row-gap: 2rem;
+      font-size: 1.25rem;
+      transition: 0.6s ease-in-out;
+    }
+
+    .dialog-container>.dialog>.heading {
+      font-weight: 600;
+    }
+
+    .dialog-container>.dialog>.heading:before {
+      content: attr(data-text);
+    }
+
+    .dialog-container>.dialog>.actions {
+      display: flex;
+      flex-flow: row nowrap;
+    }
+
+    .dialog-container>.dialog>.actions>div {
+      text-align: center;
+      background-color: rgba(0, 0, 0, .3);
+      padding: 0.5rem 0.5rem;
+      border-radius: 5px;
+      color: #ffffff;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .dialog-container>.dialog>.actions>div#close {
+      flex-grow: 1;
+      margin-left: 0.5rem;
+    }
+
+    .overlay {
+      position: absolute;
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      background-color: #dddddd;
+      z-index: 9999;
+    }
+
+    .overlay>.loading-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .overlay>.loading-container>.status {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 1.5rem;
+      color: #777777;
+      cursor: default;
+    }
+
+    .overlay>.loading-container>.status>.loading-hint>.progress-text {
+      cursor: text;
+    }
+
+    .rangeslider {
+      width: 100%;
+      height: 1.5rem;
+      border: 0.25rem solid transparent;
+      border-radius: 1rem;
+      background-color: #636363;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rangeslider__fill {
+      height: 100%;
+      background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+      background-color: #2bc253;
+      background-size: 50px 50px;
+      border-radius: 1rem;
+      animation: move 2s linear infinite;
+    }
+
+    .rangeslider__handle {
+      background: white;
+      top: 0;
+      width: 40px;
+      height: 100%;
+      position: absolute;
+      transform: translateX(-0.25rem);
+      touch-action: pan-y;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 1rem;
+    }
+
+    .rangeslider__handle:before {
+      content: attr(data-progress-value) "%";
+    }
+
+    @keyframes move {
+      0% {
+        background-position: 0 0;
+      }
+
+      100% {
+        background-position: 50px 50px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -16,6 +202,10 @@
       <div class="room" data-room-number="2"></div>
       <div class="room" data-room-number="3"></div>
       <div class="room" data-room-number="4"></div>
+      <div class="room" data-room-number="5"></div>
+      <div class="room" data-room-number="6"></div>
+      <div class="room" data-room-number="7"></div>
+      <div class="room" data-room-number="8"></div>
     </div>
 
     <div class="dialog-container">
@@ -27,33 +217,37 @@
         </div>
       </div>
     </div>
+
+    <div class="overlay">
+      <div class="loading-container">
+        <input class="loading-bar" type="range" min="0" max="100" step="1" value="0" disabled>
+        <div class="status">
+          <span>Espere un momento...</span>
+          <span>Serás redirigido a la sala cuando la barra de progreso esté en 100%</span>
+        </div>
+      </div>
+    </div>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/rangeslider.js@2.3.3/dist/rangeslider.min.js"></script>
 <script type="text/javascript">
+  $(function () {
+    if (sessionStorage.getItem("has_entered_room")) window.location = "main_room.html"
+  });
+
   function openDialog(option) {
     $(".dialog-container").fadeIn(400, function () {
       const emojis = ["🤔", "🔥", "😰", "😥", "💩", "😱", "🥱"];
-      const message = `¿Estás realmente seguro de escoger esta puerta? ${emojis[Math.floor(Math.random()*emojis.length)]}`;
 
-      const url = [
-        "https://docs.google.com/spreadsheets/d/1LSy5doz2qlUdRfNroFkrSfQlRSSPA8aIo7SY4v8Kpyw",
-        "https://docs.google.com/spreadsheets/d/1TxgmvdA8QA3SqrWuispFcyN2IVwDBVNsuHWsgWtA1HQ",
-        "https://docs.google.com/spreadsheets/d/1ukou6lvNMj4xTKz_n0GPAmtIJKW_iX5BhWZCzBLbBuE",
-        "https://docs.google.com/spreadsheets/d/1YZ-apNr5wuE6AZ6__XSrzWHEargvzjVSgQRxFoie7mQ"
-      ];
+      $(".dialog-container>.dialog>.heading").attr("data-text", `¿Estás realmente seguro de escoger esta puerta? ${emojis[Math.floor(Math.random()*emojis.length)]}`);
 
-      $(".dialog-container>.dialog>.heading").attr("data-text", message);
-      $(".dialog-container>.dialog>.actions>#proceed").click(() => window.open(url[option - 1], "_blank"));
-      $(".dialog-container>.dialog>.actions>#close").click(function () {
-        $(".dialog-container").fadeOut(400, function () {
-          $(".dialog-container>.dialog").css({
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)'
-          });
-        });
+      $(".dialog-container>.dialog>.actions>#proceed").click(function () {
+        closeDialog();
+        goToRoom();
       });
+
+      $(".dialog-container>.dialog>.actions>#close").click(() => closeDialog());
 
       $(".dialog-container>.dialog").mouseover(function () {
         const position = {
@@ -70,6 +264,51 @@
           transform: "none"
         });
       });
+    });
+  }
+
+  function closeDialog() {
+    $(".dialog-container").fadeOut(1000, function () {
+      $(".dialog-container>.dialog").css({
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)'
+      });
+    });
+  }
+
+  function goToRoom() {
+    $(".overlay").fadeIn(400, function () {
+      $('input[type="range"].loading-bar').rangeslider({
+        polyfill: false,
+        onInit: function () {
+          $(".rangeslider__handle").attr("data-progress-value", "0");
+        },
+        onSlide: function (position, value) {
+          $(".rangeslider__handle").attr("data-progress-value", value);
+        },
+        onSlideEnd: function (position, value) {
+          if (value == 100) {
+            sessionStorage.setItem("has_entered_room", true);
+            window.location = "main_room.html";
+          }
+        }
+      });
+
+      const target_progress = [14, 26, 48, 76];
+      const selected_target_progress = target_progress[Math.floor(Math.random() * target_progress.length)];
+      let current_progress = 0;
+
+      const progress_bar = setInterval(() => {
+        current_progress = current_progress + 1;
+
+        $('input[type="range"]').val(current_progress).change();
+        $(".rangeslider__handle").attr("data-progress-value", current_progress);
+        if (current_progress == selected_target_progress) {
+          setTimeout(() => $('.rangeslider.rangeslider--horizontal').removeClass("rangeslider--disabled"), 2500);
+          clearInterval(progress_bar);
+        }
+      }, 300);
     });
   }
 

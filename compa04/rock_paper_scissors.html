@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compa04 - Escape Room</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .game {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .game>.options {
+      display: grid;
+      grid-template-columns: repeat(3, 120px);
+      grid-template-rows: 120px;
+      grid-gap: 1rem;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .game>.options>input[type=radio] {
+      display: none;
+    }
+
+    .game>.options>input[type=radio]+label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 3px solid #ccc;
+      color: #777;
+      border-radius: 6px;
+      font-size: 3rem;
+      cursor: pointer;
+    }
+
+    .game>.options>input[type=radio]:checked+label {
+      border: 3px solid #000000;
+    }
+
+    .game>.result {
+      padding: 1rem;
+      display: flex;
+      flex-flow: row nowrap;
+      align-self: center;
+      margin: 1rem;
+      background: #333333;
+      align-items: center;
+      border-radius: 8px;
+      visibility: hidden;
+    }
+
+    .game.started>.result {
+      visibility: visible;
+    }
+
+    .game>.result>* {
+      font-size: 4rem;
+      font-weight: 600;
+      line-height: 100%;
+    }
+
+    .game>.result>span {
+      border-radius: 8px;
+      color: white;
+      margin: 0 2rem;
+      font-size: 2rem;
+    }
+
+    .game>.result>div {
+      position: relative;
+    }
+
+    .game>.result>div>.counter {
+      position: absolute;
+      font-size: 1rem;
+      line-height: 1rem;
+      background: #40739e;
+      color: white;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .game>.result>div#me>.counter {
+      top: -2rem;
+      left: -2rem;
+    }
+
+    .game>.result>div#cpu>.counter {
+      top: -2rem;
+      right: -2rem;
+    }
+
+    .game>.history {
+      flex-grow: 1;
+      padding: 1rem;
+      border-top: 1px solid #ccc;
+    }
+
+    .game>.history>.heading {
+      font-size: 1.75rem;
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .game>.history>.table {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 0;
+    }
+
+    .game>.history>.table>.item {
+      padding: 1rem;
+      margin-bottom: 1px;
+      color: white;
+    }
+
+    .game>.history>.table>.item.win {
+      background-color: #27ae60;
+    }
+
+    .game>.history>.table>.item.lose {
+      background-color: #e74c3c;
+    }
+
+    .game>.history>.table>.item.draw {
+      background-color: #95a5a6;
+    }
+
+    .game>.history>.table>.item>.me:before {
+      content: "(Yo) ";
+      font-style: italic;
+    }
+
+    .game>.history>.table>.item>.me:after {
+      content: "vs";
+      margin: 0 1rem;
+    }
+
+    .game>.history>.table>.item>.cpu:before {
+      content: "(CPU) ";
+      font-style: italic;
+    }
+
+    .game>.history>.table>.item>.result {
+      margin-left: 1rem;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="instructions">
+      <div class="heading">Piedra, papel o tijera</div>
+      <div class="button" onClick="displayInstructions()">Instrucciones</div>
+      <div class="button gold" onClick="goHome()">Volver</div>
+    </div>
+
+    <div class="questionnaire">
+      <div class="question">
+        <div class="status"></div>
+        <div class="game">
+          <div class="options">
+            <input type="radio" value="rock" id="rock" name="option">
+            <label for="rock">👊</label>
+            <input type="radio" value="paper" id="paper" name="option">
+            <label for="paper">🖐️</label>
+            <input type="radio" value="scissors" id="scissors" name="option">
+            <label for="scissors">✌️</label>
+          </div>
+          <div class="result">
+            <div id="me"><span></span><span class="counter"></span></div>
+            <span>VS</span>
+            <div id="cpu"><span></span><span class="counter"></span></div>
+          </div>
+          <div class="history">
+            <div class="heading">Historial</div>
+            <div class="table"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="verify">Jugar</div>
+  </div>
+
+  <div class="overlay">
+    <div class="close">X</div>
+    <div class="content">
+      <div class="heading">Instrucciones</div>
+      <div class="body">
+        <ul>
+          <li>Gana en el juego de piedra, papel o tijera</li>
+          <li>Gana 5 veces para completar este juego</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="main.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(function () {
+    if (!sessionStorage.getItem("has_entered_room")) window.location = "index.html"; // redirect to home if corrupted settings
+
+    const game = window.location.pathname.split("/compa04/")[1].replace(".html", "");
+    const selected_room = JSON.parse(sessionStorage.getItem("completed_rooms") || "[]").filter(x => x.game == game)[0];
+    if (!selected_room) goHome();
+    if (selected_room.isCompleted) goHome();
+
+    verifyTimeout(game);
+
+    const emojis = {
+      rock: "👊",
+      paper: "🖐️",
+      scissors: "✌️"
+    };
+    const isWinner = (option1, option2) => {
+      if (option1 == option2) return "draw";
+      if (option1 == "rock") return option2 == "scissors" ? "win" : "lose";
+      if (option1 == "paper") return option2 == "rock" ? "win" : "lose";
+      if (option1 == "scissors") return option2 == "paper" ? "win" : "lose";
+    }
+    const wins = {
+      me: 0,
+      cpu: 0
+    };
+
+    $(".verify").click(function () {
+      if (!$(this).hasClass("blocked")) {
+        if ($("input[type=radio][name=option]:checked").length == 0) return alert("Selecciona una opción");
+
+        $(".game").addClass("started");
+
+        const selected_option = $("input[type=radio][name=option]:checked").val();
+        const cpu_option = shuffleArray(["rock", "paper", "scissors"])[0];
+
+        const status = isWinner(selected_option, cpu_option);
+        if (status == "win") wins.me = wins.me + 1;
+        if (status == "lose") wins.cpu = wins.cpu + 1;
+
+        $("#me>span:first-child").text(emojis[selected_option]);
+        $("#cpu>span:first-child").text(emojis[cpu_option]);
+        $("#me>.counter").text(wins.me);
+        $("#cpu>.counter").text(wins.cpu);
+
+        $(".history>.table").prepend(`
+        <div class="item ${status}">
+          <span class="me">${emojis[selected_option]}</span>
+          <span class="cpu">${emojis[cpu_option]}</span>
+          <span class="result">${status}</span>
+        </div>`);
+
+        $("input[type=radio][name=option]").prop("checked", false);
+
+        if (wins.me == 5) return setTimeout(() => markRoomAsCompleted(game), 1000);
+        if (wins.cpu == 5) {
+          setRoomTimeout({
+            timeout: 0.25 * 60 * 1000,
+            game: game
+          });
+
+          verifyTimeout(game, true);
+        }
+      }
+    });
+  });
+</script>
+
+</html>

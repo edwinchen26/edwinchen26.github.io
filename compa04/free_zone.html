@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compa04 - Escape Room</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .question {
+      height: 100%;
+    }
+
+    .content {
+      height: 100%;
+      font-size: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .content>.heading {
+      font-size: 3rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+    }
+
+    li.complete {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="instructions">
+      <div class="heading">Free zone</div>
+      <div class="button" onClick="displayInstructions()">Instrucciones</div>
+      <div class="button gold" onClick="goHome()">Volver</div>
+    </div>
+
+    <div class="questionnaire">
+      <div class="question">
+        <div class="status"></div>
+        <div class="content">
+          <div class="heading">🎉 <u>Free zone</u> 🎉</div>
+          <div>No tienes que hacer más nada. Solamente dale click al botón que dice "Completar" para terminar este nivel</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="verify">Continuar</div>
+  </div>
+
+  <div class="overlay">
+    <div class="close">X</div>
+    <div class="content">
+      <div class="heading">Instrucciones</div>
+      <div class="body">
+        <ul>
+          <li>No tienes que hacer más nada</li>
+          <li class="complete">Completar</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="main.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(function () {
+    if (!sessionStorage.getItem("has_entered_room")) window.location = "index.html"; // redirect to home if corrupted settings
+
+    const game = window.location.pathname.split("/compa04/")[1].replace(".html", "");
+    const selected_room = JSON.parse(sessionStorage.getItem("completed_rooms") || "[]").filter(x => x.game == game)[0];
+    if (!selected_room) goHome();
+    if (selected_room.isCompleted) goHome();
+
+    verifyTimeout(game);
+
+    $("li.complete").click(function () {
+      markRoomAsCompleted(game);
+    });
+
+    $(".verify").click(function () {
+      if (!$(this).hasClass("blocked")) {
+        $(".question").addClass("invalid");
+
+        setRoomTimeout({
+          timeout: 1 * 60 * 1000,
+          game: game
+        });
+
+        verifyTimeout(game);
+      }
+    });
+  });
+</script>
+
+</html>

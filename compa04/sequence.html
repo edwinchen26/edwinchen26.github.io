@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compa04 - Escape Room</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .red {
+      color: red;
+    }
+
+    input[type=number],
+    input[type=text] {
+      width: 80px;
+    }
+
+    .grid {
+      width: 250px;
+      height: 250px;
+      background-color: #000000;
+      border: 3px solid #000000;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      grid-gap: 1px;
+      margin-top: 1rem;
+    }
+
+    .grid>.checkbox {
+      background-color: white;
+      cursor: pointer;
+    }
+
+    .grid>.checkbox.state-1 {
+      background-color: #007fe1;
+    }
+
+    .grid>.checkbox.state-2 {
+      background-color: #e79f22;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="instructions">
+      <div class="heading">¿Qué sigue?</div>
+      <div class="button" onClick="displayInstructions()">Instrucciones</div>
+      <div class="button gold" onClick="goHome()">Volver</div>
+    </div>
+
+    <div class="questionnaire">
+      <div class="question" id="question01">
+        <div class="status"></div>
+        <div class="heading">
+          1, 8, 15, 22, 29, <span class="red">???</span>, <span class="red">???</span>
+        </div>
+        <div class="answer">
+          <input type="number">
+          <input type="number">
+        </div>
+      </div>
+      <div class="question" id="question02">
+        <div class="status"></div>
+        <div class="heading">B, C, E, G, <span class="red">???</span>, <span class="red">???</span></div>
+        <div class="answer">
+          <input type="text">
+          <input type="text">
+        </div>
+      </div>
+      <div class="question" id="question03">
+        <div class="status"></div>
+        <div class="heading">
+          <img src="assets/images/sequence/sequence.png">
+        </div>
+        <div class="answer">
+          <div class="grid">
+            <div class="checkbox state-0"></div>
+            <div class="checkbox state-0"></div>
+            <div class="checkbox state-0"></div>
+            <div class="checkbox state-0"></div>
+            <div class="checkbox state-0"></div>
+            <div class="checkbox state-0"></div>
+            <div class="checkbox state-0"></div>
+            <div class="checkbox state-0"></div>
+            <div class="checkbox state-0"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="verify">Verificar respuesta</div>
+  </div>
+
+  <div class="overlay">
+    <div class="close">X</div>
+    <div class="content">
+      <div class="heading">Instrucciones</div>
+      <div class="body">
+        <ul>
+          <li>Descifra correctamente la sequencia que sigue para cada pregunta</li>
+          <li>(n+1) + 6n</li>
+          <li>n > 1, n / n = 1, n / 1 = n</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="main.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(function () {
+    if (!sessionStorage.getItem("has_entered_room")) window.location = "index.html"; // redirect to home if corrupted settings
+
+    const game = window.location.pathname.split("/compa04/")[1].replace(".html", "");
+    const selected_room = JSON.parse(sessionStorage.getItem("completed_rooms") || "[]").filter(x => x.game == game)[0];
+    if (!selected_room) goHome();
+    if (selected_room.isCompleted) goHome();
+
+    verifyTimeout(game);
+
+    $(".checkbox").click(function () {
+      const state = $(this).attr("class").split(/\s+/)[1];
+      const next_state = state.split("state-")[1] == "2" ? "state-0" : `state-${parseInt(state.split("state-")[1]) + 1}`;
+
+      $(this).removeClass(state).addClass(next_state);
+    });
+
+    $(".verify").click(function () {
+      if (!$(this).hasClass("blocked")) {
+        const isError = {
+          question01: [],
+          question02: [],
+          question03: []
+        };
+        const answer = [
+          [36, 43],
+          ["K", "M"],
+          ["state-1", "state-0", "state-0",
+            "state-0", "state-0", "state-0",
+            "state-2", "state-0", "state-0"
+          ]
+        ];
+
+        $("#question01>.answer>input").each((index, el) => isError.question01.push($(el).val() != answer[0][index]));
+        $("#question02>.answer>input").each((index, el) => isError.question02.push($(el).val().toUpperCase() != answer[1][index]));
+        $("#question03>.answer>.grid>.checkbox").each((index, el) => isError.question03.push($(el).attr("class").split(/\s+/)[1] != answer[2][index]));
+
+        $("#question01").attr("class", "question").addClass(isError.question01.includes(true) ? "invalid" : "valid");
+        $("#question02").attr("class", "question").addClass(isError.question02.includes(true) ? "invalid" : "valid");
+        $("#question03").attr("class", "question").addClass(isError.question03.includes(true) ? "invalid" : "valid");
+
+        if (isError.question01.includes(true) || isError.question02.includes(true) || isError.question03.includes(true)) {
+          setRoomTimeout({
+            timeout: 1.5 * 60 * 1000,
+            game: game
+          });
+
+          verifyTimeout(game);
+        } else {
+          markRoomAsCompleted(game);
+        }
+      }
+    });
+  });
+</script>
+
+</html>
