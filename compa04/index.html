@@ -288,8 +288,10 @@
         },
         onSlideEnd: function (position, value) {
           if (value == 100) {
+            const isForceAll = new URL(window.location.href).searchParams.get("forceAll") == "yes";
+
             sessionStorage.setItem("has_entered_room", true);
-            window.location = "main_room.html";
+            window.location = `main_room.html${isForceAll ? '?forceAll=yes' : ''}`;
           }
         }
       });

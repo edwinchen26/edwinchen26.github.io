@@ -126,7 +126,7 @@
   $(function () {
     if (!sessionStorage.getItem("has_entered_room")) window.location = "index.html"; // redirect to home if corrupted settings
 
-    if (!sessionStorage.getItem("completed_rooms")) {
+    const createGame = (totalRooms) => {
       const rooms = [
         "sequence",
         "lyrics",
@@ -149,9 +149,8 @@
         "guess_country",
         "free_zone",
       ];
-      const isForceAll = new URL(window.location.href).searchParams.get("forceAll") == "yes";
-      const shuffled_rooms = shuffleArray(rooms).splice(0, isForceAll ? 20 : 12);
 
+      const shuffled_rooms = shuffleArray(rooms).splice(0, totalRooms);
       const formatted_rooms = shuffled_rooms.map(function (game, index) {
         return {
           id: index + 1,
@@ -162,6 +161,14 @@
       });
 
       sessionStorage.setItem("completed_rooms", JSON.stringify(formatted_rooms));
+    };
+
+    if (!sessionStorage.getItem("completed_rooms")) createGame(12);
+
+    if (new URL(window.location.href).searchParams.get("forceAll") == "yes") {
+      sessionStorage.removeItem("completed_rooms");
+      createGame(20);
+      setTimeout(() => window.location.href = "main_room.html", 500);
     }
 
     const completed_rooms = JSON.parse(sessionStorage.getItem("completed_rooms"));
