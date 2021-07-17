@@ -149,7 +149,8 @@
         "guess_country",
         "free_zone",
       ];
-      const shuffled_rooms = shuffleArray(rooms).splice(0, 12);
+      const isForceAll = new URL(window.location.href).searchParams.get("forceAll") == "yes";
+      const shuffled_rooms = shuffleArray(rooms).splice(0, isForceAll ? 20 : 12);
 
       const formatted_rooms = shuffled_rooms.map(function (game, index) {
         return {
