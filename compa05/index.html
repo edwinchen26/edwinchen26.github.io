@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compa05</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap">
+  <style>
+    body {
+      font: 400 16px "Open Sans", sans-serif;
+      background-color: #e9e9e9;
+    }
+
+    body.static {
+      overflow: hidden;
+    }
+
+    .main {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .button {
+      width: 200px;
+      background-color: #ff7f50;
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff;
+      display: none;
+    }
+
+    .overlay.is-visible {
+      display: block;
+    }
+
+    .overlay>iframe {
+      width: 100%;
+      height: 100%;
+      display: none;
+      overflow: auto;
+    }
+
+    .overlay>iframe.is-visible {
+      display: block;
+    }
+
+    .overlay>.close {
+      display: flex;
+      padding: 1rem;
+      justify-content: center;
+    }
+
+    .overlay>.close>span {
+      padding: 0.5rem 1rem;
+      background-color: #000000;
+      color: #ffffff;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="overlay">
+    <div class="close">
+      <span>Cerrar</span>
+    </div>
+    <iframe frameborder="0" allowfullscreen></iframe>
+  </div>
+  <div class="main">
+    <div class="button" data-id="fb9qky34x">Pregunta 1</div>
+    <div class="button" data-id="s3eq22g8d">Pregunta 2</div>
+    <div class="button" data-id="8kpcvfuwc">Pregunta 3</div>
+    <div class="button" data-id="g77u7wg42">Pregunta 4</div>
+    <div class="button" data-id="srzyhg87c">Pregunta 5</div>
+    <div class="button" data-id="og6a1d1x3">Pregunta 6</div>
+    <div class="button" data-id="uvqa51g6g">Pregunta 7</div>
+    <div class="button" data-id="gy6rkr6gv">Pregunta 8</div>
+    <div class="button" data-id="76wc59v23">Pregunta 9</div>
+    <div class="button" data-id="kkuc8yfhu">Pregunta 10</div>
+    <div class="button" data-id="gxq42vhpj">Pregunta 11</div>
+    <div class="button" data-id="oek5h8a71">Pregunta 12</div>
+    <div class="button" data-id="c9ox92fja">Pregunta 13</div>
+    <div class="button" data-id="zzv78k5wf">Pregunta 14</div>
+    <div class="button" data-id="6bwgcsez8">Pregunta 15</div>
+  </div>
+</body>
+
+<script type="text/javascript">
+  const overlay = document.querySelector(".overlay");
+  const iframe = document.querySelector(".overlay>iframe");
+
+  const toggleOverlay = () => {
+    document.querySelector("body").classList.toggle("static");
+    overlay.classList.toggle("is-visible");
+    iframe.classList.toggle("is-visible");
+  };
+
+  document.querySelectorAll(".button").forEach((button) => {
+    button.addEventListener("click", function () {
+      iframe.setAttribute("src", `https://strawpoll.com/embed/${this.dataset.id}`);
+      iframe.onload = () => toggleOverlay();
+    });
+  });
+
+  document.querySelector(".overlay>.close").addEventListener("click", () => toggleOverlay());
+</script>
+
+</html>
