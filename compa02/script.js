@@ -1,65 +1,65 @@
 const data = [{
-    text: "Porque de tal manera amo Dios al mundo que ha dado a su Hijo unigenito para que todo aquel que en el cree no se pierda mas tenga vida eterna",
-    result: "Juan 3:16"
-  },
-  {
-    text: "Cuales son los colores primarios",
-    result: "Rojo, amarillo, azul"
-  },
-  {
-    text: "Cual es el oceano mas extenso y profundo del mundo",
-    result: "Océano Pacífico"
-  },
-  {
-    text: "La montaña mas alta del mundo",
-    result: "Monte Everest"
-  },
-  {
-    text: "Las fronteras terrestres de Panama",
-    result: "Colombia y Costa Rica"
-  },
-  {
-    text: "Nombre los colores del arcoiris",
-    result: "Rojo, naranja, amarillo, verde, azul, indigo y violeta"
-  },
-  {
-    text: "En que animal se convirtio el Emperador Kuzco en la pelicula",
-    result: "Llama"
-  },
-  {
-    text: "Mas buscad primeramente el reino de Dios y su justicia y todas estas cosas os seran añadidas",
-    result: "Mateo 6:33"
-  },
-  {
-    text: "Cuantos metros hay en una milla",
-    result: "1609 metros"
-  },
-  {
-    text: "Nombre de los planetas en el sistema solar que comienzan con la letra m",
-    result: "Marte y Mercurio"
-  },
-  {
-    text: "Comida favorita de Naruto",
-    result: "Ramen"
-  },
-  {
-    text: "Nombre del vecino de Andy en Toy Story",
-    result: "Sid"
-  },
-  {
-    text: "Quinto planeta del sistema solar",
-    result: "Jupiter"
-  },
-  {
-    text: "Quien pinto la Mona Lisa",
-    result: "Leonardo DaVinci"
-  },
-  {
-    text: "Nombre de la diseñadora de moda en la pelicula Los Increibles",
-    result: "Edna Moda"
-  },
+  text: "Porque de tal manera amo Dios al mundo que ha dado a su Hijo unigenito para que todo aquel que en el cree no se pierda mas tenga vida eterna",
+  result: "Juan 3:16"
+},
+{
+  text: "Cuales son los colores primarios",
+  result: "Rojo, amarillo, azul"
+},
+{
+  text: "Cual es el oceano mas extenso y profundo del mundo",
+  result: "Océano Pacífico"
+},
+{
+  text: "La montaña mas alta del mundo",
+  result: "Monte Everest"
+},
+{
+  text: "Las fronteras terrestres de Panama",
+  result: "Colombia y Costa Rica"
+},
+{
+  text: "Nombre los colores del arcoiris",
+  result: "Rojo, naranja, amarillo, verde, azul, indigo y violeta"
+},
+{
+  text: "En que animal se convirtio el Emperador Kuzco en la pelicula",
+  result: "Llama"
+},
+{
+  text: "Mas buscad primeramente el reino de Dios y su justicia y todas estas cosas os seran añadidas",
+  result: "Mateo 6:33"
+},
+{
+  text: "Cuantos metros hay en una milla",
+  result: "1609 metros"
+},
+{
+  text: "Nombre de los planetas en el sistema solar que comienzan con la letra m",
+  result: "Marte y Mercurio"
+},
+{
+  text: "Comida favorita de Naruto",
+  result: "Ramen"
+},
+{
+  text: "Nombre del vecino de Andy en Toy Story",
+  result: "Sid"
+},
+{
+  text: "Quinto planeta del sistema solar",
+  result: "Jupiter"
+},
+{
+  text: "Quien pinto la Mona Lisa",
+  result: "Leonardo DaVinci"
+},
+{
+  text: "Nombre de la diseñadora de moda en la pelicula Los Increibles",
+  result: "Edna Moda"
+},
 ];
-console.log(data.length)
+
 let selectedPhraseIndex = 0;
 
 function newGame() {
