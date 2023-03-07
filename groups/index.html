@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random groups</title>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 16px;
+      padding: 1rem;
+    }
+
+    * {
+      font-family: inherit;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    .main {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .container {
+      height: fit-content;
+      padding: 1rem;
+      background-color: #ffffff;
+      border: 3px solid #000000;
+      position: relative;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .container.shown {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .container:after {
+      content: "";
+      width: 100%;
+      height: 100%;
+      background-color: #e3e5e9;
+      border: 3px solid #000000;
+      position: absolute;
+      top: 0.25rem;
+      left: 0.25rem;
+      z-index: -1;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-group:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+
+    .input-group>label {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: .5rem;
+    }
+
+    .input-group>label:after {
+      content: ': ';
+    }
+
+    input[type=number] {
+      width: 100%;
+      border: 2px solid black;
+      border-radius: 6px;
+      padding: 1ch;
+    }
+
+    textarea {
+      height: minmax(350px);
+      min-height: 350px;
+      padding: 1ch;
+      resize: none;
+      outline: 0;
+      border: 2px solid black;
+      border-radius: 6px;
+    }
+
+    button {
+      width: 100%;
+      background-color: #242424;
+      color: #ffffff;
+      margin-bottom: 1rem;
+      font-size: 1.125rem;
+      font-weight: 600;
+      border-radius: 6px;
+      padding: 1ch;
+      cursor: pointer;
+    }
+
+    .team_group:not(:last-child) {
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px dashed #999;
+    }
+
+    .members {
+      display: flex;
+      flex-direction: column;
+      padding-left: 0;
+      list-style: inside decimal;
+    }
+
+    .heading {
+      margin-bottom: .75rem;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main" v-scope>
+    <div class="container shown">
+      <div class="input-group">
+        <label for="teams">Teams</label>
+        <input name="teams" type="number" v-model="teams">
+      </div>
+      <div class="input-group">
+        <label for="participants">Participants</label>
+        <textarea id="participants" name="participants" v-model="participants"></textarea>
+      </div>
+      <button @click="randomize">Random</button>
+    </div>
+
+    <div class="container" :class="{ shown: groups.length > 0 }">
+      <div class="team_group" v-for="(group, index) in groups">
+        <div class="heading" v-text="`Group ${index + 1}`"></div>
+        <ol class="members">
+          <li v-for="name in group" v-text="name"></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/petite-vue"></script>
+  <script type="text/javascript">
+    PetiteVue.createApp({
+      groups: [],
+      teams: 5,
+      participants: (new URL(window.location.href).searchParams.get("m") || "").replaceAll(",", "\n"),
+      randomize() {
+        this.groups = Array.from(new Array(this.teams), () => new Array());
+
+        const participants = this.participants.split("\n").filter(name => !name.includes("*"));
+        const participants_size = participants.length;
+        let current_team = 0;
+
+        for (let i = 0; i < participants_size; i++) {
+          const rand = Math.floor(Math.random() * participants.length);
+          const selected_participant = participants[rand];
+
+          this.groups[current_team].push(selected_participant);
+          participants.splice(rand, 1);
+
+          current_team = current_team == (this.teams - 1) ? 0 : current_team + 1;
+        }
+      }
+    }).mount();
+  </script>
+</body>
+
+</html>
